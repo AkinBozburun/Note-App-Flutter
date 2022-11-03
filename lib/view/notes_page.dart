@@ -11,6 +11,8 @@ class NotesPage extends StatefulWidget
 
 class _NotesPageState extends State<NotesPage>
 {
+  String gelenKullanici = "Akın Bozburun";
+
   @override
   Widget build(BuildContext context)
   {
@@ -18,14 +20,25 @@ class _NotesPageState extends State<NotesPage>
     (
       appBar: AppBar
       (
-        title: const Text("Notes"),
+        title: ListTile
+        (
+          title: const Text("Hoşgeldiniz!",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 24)),
+          subtitle: Text(gelenKullanici,style: TextStyle(color: Colors.grey.shade800,fontSize: 20)),
+        ),
         backgroundColor: Colors.transparent,
-        elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle
         (
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark
         ),
+        elevation: 0,
+        toolbarHeight: 120,
+        actions: const [Padding
+        (
+          padding:  EdgeInsets.only(right: 15),
+          child: CircleAvatar(backgroundColor: Colors.blueGrey),
+        )],
+        leading: IconButton(onPressed: (){}, icon: const Icon(Icons.menu),color: Colors.grey.shade800,),
       ),
       body: GridView.builder
       (
