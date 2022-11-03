@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget
     return MaterialApp
     (
       title: 'MyNotes',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData
       (
         primarySwatch: Colors.blue,
@@ -40,7 +41,24 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold
     (
       appBar: AppBar(title: const Text("Notes")),
-      body: Container(),
+      body: GridView.builder
+      (
+        itemCount: 5,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) => Card
+        (
+          child: ListTile
+          (
+            title: Text("Note #${index+1}"),
+            subtitle: Text("This is the note of ${index+1}"),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton
+      (
+        onPressed: () => print("eklendi."),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
