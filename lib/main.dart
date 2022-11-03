@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_notes_app/view/notes_page.dart';
 
 void main()
 {
@@ -20,45 +21,7 @@ class MyApp extends StatelessWidget
       (
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget
-{
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage>
-{
-  @override
-  Widget build(BuildContext context)
-  {
-    return Scaffold
-    (
-      appBar: AppBar(title: const Text("Notes")),
-      body: GridView.builder
-      (
-        itemCount: 5,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (context, index) => Card
-        (
-          child: ListTile
-          (
-            title: Text("Note #${index+1}"),
-            subtitle: Text("This is the note of ${index+1}"),
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton
-      (
-        onPressed: () => print("eklendi."),
-        child: const Icon(Icons.add),
-      ),
+      home: const NotesPage(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NotesPage extends StatefulWidget
 {
@@ -15,13 +16,24 @@ class _NotesPageState extends State<NotesPage>
   {
     return Scaffold
     (
-      appBar: AppBar(title: const Text("Notes")),
+      appBar: AppBar
+      (
+        title: const Text("Notes"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle
+        (
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark
+        ),
+      ),
       body: GridView.builder
       (
         itemCount: 5,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (context, index) => Card
         (
+          color: Colors.yellow.shade100,
           child: ListTile
           (
             title: Text("Note #${index+1}"),
