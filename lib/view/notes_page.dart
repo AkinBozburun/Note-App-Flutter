@@ -22,8 +22,8 @@ class _NotesPageState extends State<NotesPage>
       (
         title: ListTile
         (
-          title: const Text("Hoşgeldiniz!",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 24)),
-          subtitle: Text(gelenKullanici,style: TextStyle(color: Colors.grey.shade800,fontSize: 20)),
+          title: Text("Welcome",style: TextStyle(color: Colors.grey.shade600,fontSize: 16)),
+          subtitle: Text(gelenKullanici,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22)),
         ),
         backgroundColor: Colors.transparent,
         systemOverlayStyle: const SystemUiOverlayStyle
@@ -38,7 +38,6 @@ class _NotesPageState extends State<NotesPage>
           padding:  EdgeInsets.only(right: 15),
           child: CircleAvatar(backgroundColor: Colors.blueGrey),
         )],
-        leading: IconButton(onPressed: (){}, icon: const Icon(Icons.menu),color: Colors.grey.shade800,),
       ),
       body: GridView.builder
       (
