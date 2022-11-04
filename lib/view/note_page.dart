@@ -49,12 +49,7 @@ class _NotePageState extends State<NotePage>
             Text("This is the note page. You can note it here what you want."),
           ],
         ),
-      )
-      //const ListTile
-      //(
-      //  title: Text("NOTE TITLE"),
-      //  subtitle: Text("This is the note page. You can note it here what you want."),
-      //),
+      ),
     );
   }
 }

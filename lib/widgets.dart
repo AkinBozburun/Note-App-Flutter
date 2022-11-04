@@ -11,7 +11,7 @@ Widget avatar() => GestureDetector
   ),
 );
 
-Widget noteCard(int index,Color noteColor) => Card
+Widget noteCard(int index,Color noteColor,List note) => Card
 (
   color: noteColor,
   elevation: 5,
@@ -22,8 +22,8 @@ Widget noteCard(int index,Color noteColor) => Card
   ),
   child: ListTile
   (
-    title: Text("Note #${index+1}",style: const TextStyle(fontWeight: FontWeight.bold)),
-    subtitle: Text("This is the note ${index+1}"),
+    title: Text(note[index]["title"],style: const TextStyle(fontWeight: FontWeight.bold)),
+    subtitle: Text(note[index]["note"]),
   ),
 );
 

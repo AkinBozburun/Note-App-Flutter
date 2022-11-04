@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_notes_app/core/note_list_map.dart';
 import 'package:my_notes_app/view/note_page.dart';
 import 'package:my_notes_app/widgets.dart';
 
@@ -50,7 +51,7 @@ class _NotesPageState extends State<NotesPage>
       body: GridView.builder
       (
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        itemCount: 5,
+        itemCount: notes.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount
         (
           crossAxisCount: 2,
@@ -63,7 +64,7 @@ class _NotesPageState extends State<NotesPage>
           (
             gelencolor: noteColor,
           ))),
-          child: noteCard(index,noteColor)
+          child: noteCard(index,noteColor,notes),
         ),
       ),
       floatingActionButton: addNoteButton(),
