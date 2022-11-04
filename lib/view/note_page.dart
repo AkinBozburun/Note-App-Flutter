@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_notes_app/widgets/colors_list.dart';
 import 'package:my_notes_app/core/note_list_map.dart';
 
 class NotePage extends StatefulWidget
@@ -38,21 +39,28 @@ class _NotePageState extends State<NotePage>
           IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
         ],
       ),
-      body: Padding
+      body: Stack
       (
-        padding: const EdgeInsets.all(20),
-        child: Column
-        (
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:
-          [
-            Text(notes[widget.gelenIndex]["title"],
-            style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
-            const SizedBox(height: 20),
-            Text(notes[widget.gelenIndex]["note"]),
-          ],
-        ),
-      ),
+        children:
+        [
+          Padding
+          (
+            padding: const EdgeInsets.all(20),
+            child: Column
+            (
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:
+              [
+                Text(notes[widget.gelenIndex]["title"],
+                style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
+                const SizedBox(height: 20),
+                Text(notes[widget.gelenIndex]["note"]),
+              ],
+            ),
+          ),
+          Align(alignment: Alignment.bottomCenter,child: ColorList()),
+        ],
+      )
     );
   }
 }

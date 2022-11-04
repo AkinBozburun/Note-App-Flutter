@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_notes_app/core/note_list_map.dart';
 import 'package:my_notes_app/view/note_page.dart';
-import 'package:my_notes_app/widgets.dart';
+import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotesPage extends StatefulWidget
 {
