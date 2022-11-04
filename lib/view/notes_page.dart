@@ -62,7 +62,7 @@ class _NotesPageState extends State<NotesPage>
         (
           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage
           (
-            gelencolor: noteColor,
+            gelencolor: noteColor,gelenIndex: index,
           ))),
           child: noteCard(index,noteColor,notes),
         ),

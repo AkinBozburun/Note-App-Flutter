@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_notes_app/core/note_list_map.dart';
 
 class NotePage extends StatefulWidget
 {
   final Color gelencolor;
+  final int gelenIndex;
 
-  const NotePage({super.key, required this.gelencolor});
+  const NotePage({super.key, required this.gelencolor, required this.gelenIndex,});
 
   @override
   State<NotePage> createState() => _NotePageState();
@@ -42,11 +44,12 @@ class _NotePageState extends State<NotePage>
         child: Column
         (
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const
+          children:
           [
-            Text("Note Title",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
-            SizedBox(height: 20),
-            Text("This is the note page. You can note it here what you want."),
+            Text(notes[widget.gelenIndex]["title"],
+            style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
+            const SizedBox(height: 20),
+            Text(notes[widget.gelenIndex]["note"]),
           ],
         ),
       ),
