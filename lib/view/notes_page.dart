@@ -46,17 +46,10 @@ class _NotesPageState extends State<NotesPage>
       ),
       body: GridView.builder
       (
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         itemCount: 5,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (context, index) => Card
-        (
-          color: Colors.yellow.shade100,
-          child: ListTile
-          (
-            title: Text("Note #${index+1}"),
-            subtitle: Text("This is the note of ${index+1}"),
-          ),
-        ),
+        itemBuilder: (context, index) => noteCard(index),
       ),
       floatingActionButton: FloatingActionButton
       (
