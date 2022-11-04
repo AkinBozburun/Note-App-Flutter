@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:my_notes_app/widgets/colors_list.dart';
 import 'package:my_notes_app/core/note_list_map.dart';
+import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotePage extends StatefulWidget
 {
@@ -24,6 +24,7 @@ class _NotePageState extends State<NotePage>
       backgroundColor: widget.gelencolor,
       appBar: AppBar
       (
+        systemOverlayStyle: tranparentStatusBar(),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton
@@ -58,15 +59,16 @@ class _NotePageState extends State<NotePage>
               ],
             ),
           ),
-          SizedBox
+          Container
           (
+            color: Colors.black12,
             height: 100,
             child: Column
             (
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:
               [
-                const Text("Son değiştirme Tarihi: 12:06"),
+                Text("En son değiştirme tarihi: ${notes[widget.gelenIndex]["lastChange"]}"),
                 ColorList(),
               ],
             ),

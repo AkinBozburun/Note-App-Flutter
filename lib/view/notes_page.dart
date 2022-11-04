@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:my_notes_app/core/note_list_map.dart';
 import 'package:my_notes_app/view/note_page.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
@@ -16,7 +15,7 @@ class _NotesPageState extends State<NotesPage>
 {
   String kullanici = "Akın Bozburun";
 
-  Color noteColor = Colors.grey.shade300;
+  Color noteColor = Colors.yellow.shade200;
 
   @override
   Widget build(BuildContext context)
@@ -25,6 +24,7 @@ class _NotesPageState extends State<NotesPage>
     (
       appBar: AppBar
       (
+        systemOverlayStyle: tranparentStatusBar(),
         title: Column
         (
           crossAxisAlignment: CrossAxisAlignment.start,

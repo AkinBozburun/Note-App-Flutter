@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Widget avatar() => GestureDetector
 (
@@ -29,10 +30,17 @@ Widget noteCard(int index,Color noteColor,List note) => Card
 
 Widget addNoteButton() => FloatingActionButton
 (
+  backgroundColor: Colors.blueGrey,
   shape: RoundedRectangleBorder
   (
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(15),
   ),
   onPressed: () => print("eklendi."),
   child: const Icon(Icons.add),
+);
+
+SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
+(
+  statusBarColor: Colors.transparent,
+  statusBarIconBrightness: Brightness.dark,
 );

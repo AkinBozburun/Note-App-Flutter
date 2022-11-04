@@ -8,31 +8,31 @@ class ColorList extends StatelessWidget
   [
     {
       "name" : "Red",
-      "color" : Colors.red.shade100,
+      "color" : Colors.red.shade200,
     },
     {
       "name" : "Orange",
-      "color" : Colors.orange.shade100,
+      "color" : Colors.orange.shade200,
     },
     {
       "name" : "Yellow",
-      "color" : Colors.yellow.shade100,
+      "color" : Colors.yellow.shade200,
     },
     {
       "name" : "Green",
-      "color" : Colors.green.shade100,
+      "color" : Colors.green.shade200,
     },
     {
       "name" : "Blue",
-      "color" : Colors.blue.shade100,
+      "color" : Colors.blue.shade200,
     },
     {
       "name" : "Purple",
-      "color" : Colors.purple.shade100,
+      "color" : Colors.purple.shade200,
     },
     {
       "name" : "Grey",
-      "color" : Colors.grey.shade100,
+      "color" : Colors.grey.shade200,
     },
   ];
 
@@ -54,7 +54,8 @@ class ColorList extends StatelessWidget
           decoration: BoxDecoration
           (
             color: colors[index]["color"],
-
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: Colors.black,width: 0.1)
           ),
         ),
       ),
