@@ -13,7 +13,7 @@ Widget avatar() => GestureDetector
 
 Widget noteCard(int index) => GestureDetector
 (
-  onTap: () => print("click note"),
+  onTap: () => print("click note $index"),
   child: Card
   (
     color: Colors.yellow.shade100,
@@ -21,16 +21,15 @@ Widget noteCard(int index) => GestureDetector
     shape: RoundedRectangleBorder
     (
       borderRadius: BorderRadius.circular(10),
-      side: const BorderSide(width: 0.5,color: Colors.black26)
+      side: const BorderSide(width: 0.3,color: Colors.grey)
     ),
     child: ListTile
     (
       title: Text("Note #${index+1}"),
-      subtitle: Text("This is the note of ${index+1}"),
+      subtitle: Text("This is the note ${index+1}"),
     ),
   ),
 );
-
 
 Widget addNoteButton() => FloatingActionButton
 (
