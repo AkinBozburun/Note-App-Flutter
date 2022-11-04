@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_notes_app/widgets.dart';
 
 class NotesPage extends StatefulWidget
 {
@@ -20,10 +21,14 @@ class _NotesPageState extends State<NotesPage>
     (
       appBar: AppBar
       (
-        title: ListTile
+        title: Column
         (
-          title: Text("Welcome",style: TextStyle(color: Colors.grey.shade600,fontSize: 16)),
-          subtitle: Text(gelenKullanici,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22)),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:
+          [
+            Text("Welcome",style: TextStyle(color: Colors.grey.shade600,fontSize: 16)),
+            Text(gelenKullanici,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22)),
+          ],
         ),
         backgroundColor: Colors.transparent,
         systemOverlayStyle: const SystemUiOverlayStyle
@@ -33,10 +38,10 @@ class _NotesPageState extends State<NotesPage>
         ),
         elevation: 0,
         toolbarHeight: 120,
-        actions: const [Padding
+        actions: [Padding
         (
-          padding:  EdgeInsets.only(right: 15),
-          child: CircleAvatar(backgroundColor: Colors.blueGrey),
+          padding: const EdgeInsets.only(right: 20),
+          child: avatar(),
         )],
       ),
       body: GridView.builder
