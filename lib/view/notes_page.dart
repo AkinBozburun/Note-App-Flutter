@@ -37,7 +37,7 @@ class _NotesPageState extends State<NotesPage>
           statusBarIconBrightness: Brightness.dark
         ),
         elevation: 0,
-        toolbarHeight: 120,
+        toolbarHeight: 100,
         actions: [Padding
         (
           padding: const EdgeInsets.only(right: 20),
@@ -56,11 +56,7 @@ class _NotesPageState extends State<NotesPage>
         ),
         itemBuilder: (context, index) => noteCard(index),
       ),
-      floatingActionButton: FloatingActionButton
-      (
-        onPressed: () => print("eklendi."),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: addNoteButton(),
     );
   }
 }

@@ -26,3 +26,13 @@ Widget noteCard(int index) => Card
     subtitle: Text("This is the note of ${index+1}"),
   ),
 );
+
+Widget addNoteButton() => FloatingActionButton
+(
+  shape: RoundedRectangleBorder
+  (
+    borderRadius: BorderRadius.circular(10)
+  ),
+  onPressed: () => print("eklendi."),
+  child: const Icon(Icons.add),
+);
