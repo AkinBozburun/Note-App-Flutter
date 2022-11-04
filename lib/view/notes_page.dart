@@ -48,7 +48,12 @@ class _NotesPageState extends State<NotesPage>
       (
         padding: const EdgeInsets.symmetric(horizontal: 5),
         itemCount: 5,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount
+        (
+          crossAxisCount: 2,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 5,
+        ),
         itemBuilder: (context, index) => noteCard(index),
       ),
       floatingActionButton: FloatingActionButton

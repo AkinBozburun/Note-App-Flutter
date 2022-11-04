@@ -14,6 +14,12 @@ Widget avatar() => GestureDetector
 Widget noteCard(int index) => Card
 (
   color: Colors.yellow.shade100,
+  elevation: 5,
+  shape: RoundedRectangleBorder
+  (
+    borderRadius: BorderRadius.circular(10),
+    side: const BorderSide(width: 0.5,color: Colors.black26)
+  ),
   child: ListTile
   (
     title: Text("Note #${index+1}"),
