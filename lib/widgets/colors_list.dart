@@ -44,6 +44,7 @@ class ColorList extends StatelessWidget
       height: 50,
       child: ListView.builder
       (
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         itemCount: colors.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => Container

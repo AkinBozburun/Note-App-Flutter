@@ -35,11 +35,6 @@ class _NotesPageState extends State<NotesPage>
           ],
         ),
         backgroundColor: Colors.transparent,
-        systemOverlayStyle: const SystemUiOverlayStyle
-        (
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark
-        ),
         elevation: 0,
         toolbarHeight: 100,
         actions: [Padding

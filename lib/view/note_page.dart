@@ -24,7 +24,6 @@ class _NotePageState extends State<NotePage>
       backgroundColor: widget.gelencolor,
       appBar: AppBar
       (
-        systemOverlayStyle: const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton
@@ -41,6 +40,7 @@ class _NotePageState extends State<NotePage>
       ),
       body: Stack
       (
+        alignment: Alignment.bottomLeft,
         children:
         [
           Padding
@@ -58,7 +58,19 @@ class _NotePageState extends State<NotePage>
               ],
             ),
           ),
-          Align(alignment: Alignment.bottomCenter,child: ColorList()),
+          SizedBox
+          (
+            height: 100,
+            child: Column
+            (
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:
+              [
+                const Text("Son değiştirme Tarihi: 12:06"),
+                ColorList(),
+              ],
+            ),
+          ),
         ],
       )
     );
