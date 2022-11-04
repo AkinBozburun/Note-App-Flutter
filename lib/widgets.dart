@@ -11,21 +11,26 @@ Widget avatar() => GestureDetector
   ),
 );
 
-Widget noteCard(int index) => Card
+Widget noteCard(int index) => GestureDetector
 (
-  color: Colors.yellow.shade100,
-  elevation: 5,
-  shape: RoundedRectangleBorder
+  onTap: () => print("click note"),
+  child: Card
   (
-    borderRadius: BorderRadius.circular(10),
-    side: const BorderSide(width: 0.5,color: Colors.black26)
-  ),
-  child: ListTile
-  (
-    title: Text("Note #${index+1}"),
-    subtitle: Text("This is the note of ${index+1}"),
+    color: Colors.yellow.shade100,
+    elevation: 5,
+    shape: RoundedRectangleBorder
+    (
+      borderRadius: BorderRadius.circular(10),
+      side: const BorderSide(width: 0.5,color: Colors.black26)
+    ),
+    child: ListTile
+    (
+      title: Text("Note #${index+1}"),
+      subtitle: Text("This is the note of ${index+1}"),
+    ),
   ),
 );
+
 
 Widget addNoteButton() => FloatingActionButton
 (
