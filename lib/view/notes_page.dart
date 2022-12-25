@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/core/note_list_map.dart';
+import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/view/note_page.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
@@ -14,8 +15,6 @@ class NotesPage extends StatefulWidget
 class _NotesPageState extends State<NotesPage>
 {
   String kullanici = "Akın Bozburun";
-
-  Color noteColor = Colors.yellow.shade200;
 
   @override
   Widget build(BuildContext context)
@@ -57,9 +56,9 @@ class _NotesPageState extends State<NotesPage>
         (
           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage
           (
-            gelencolor: noteColor,gelenIndex: index,
+            gelencolor: AppStyle.noteColor,gelenIndex: index,
           ))),
-          child: noteCard(index,noteColor,notes),
+          child: noteCard(index,AppStyle.noteColor,notes),
         ),
       ),
       floatingActionButton: addNoteButton(),

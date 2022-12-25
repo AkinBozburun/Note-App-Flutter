@@ -54,7 +54,9 @@ class _NotePageState extends State<NotePage>
               [
                 Text(notes[widget.gelenIndex]["title"],
                 style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
+                Container(color: Colors.black26,height: 1),
+                const SizedBox(height: 50),
                 Text(notes[widget.gelenIndex]["note"]),
               ],
             ),
