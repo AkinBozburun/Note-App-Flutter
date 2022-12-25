@@ -3,7 +3,8 @@ List notes =
   {
     "title" : "Yapılacaklar Listesi",
     "lastChange" : "12:06",
-    "note" : """
+    "note" :
+    """
     1)Ödev.
 
     2)Alışveriş.
@@ -15,7 +16,8 @@ List notes =
   {
     "title" : "Alışveriş Listesi",
     "lastChange" : "17:45",
-    "note" : """
+    "note" :
+    """
     1)Domates.
 
     2)Biber.
