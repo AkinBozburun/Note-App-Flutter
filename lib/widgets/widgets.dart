@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_notes_app/widgets/colors_list.dart';
 
 Widget avatar() => GestureDetector
 (
@@ -12,21 +14,24 @@ Widget avatar() => GestureDetector
   ),
 );
 
-Widget noteCard(int index,Color noteColor,List note) => Card
-(
-  color: noteColor,
-  elevation: 5,
-  shape: RoundedRectangleBorder
+Widget noteCards(QueryDocumentSnapshot doc)
+{
+  return Card
   (
-    borderRadius: BorderRadius.circular(10),
-    side: const BorderSide(width: 0.3,color: Colors.grey)
-  ),
-  child: ListTile
-  (
-    title: Text(note[index]["title"],style: const TextStyle(fontWeight: FontWeight.bold)),
-    subtitle: Text(note[index]["note"]),
-  ),
-);
+    color: colors[doc['note_color']],
+    elevation: 5,
+    shape: RoundedRectangleBorder
+    (
+      borderRadius: BorderRadius.circular(10),
+      side: const BorderSide(width: 0.3,color: Colors.grey)
+    ),
+    child: ListTile
+    (
+      title: Text(doc["note_title"]),
+      subtitle: Text(doc["note"]),
+    ),
+  );
+}
 
 Widget addNoteButton() => FloatingActionButton
 (
