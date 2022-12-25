@@ -1,14 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/widgets/colors_list.dart';
-import 'package:my_notes_app/core/note_list_map.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotePage extends StatefulWidget
 {
-  final Color gelencolor;
-  final int gelenIndex;
+  NotePage({super.key, required this.doc});
 
-  const NotePage({super.key, required this.gelencolor, required this.gelenIndex,});
+  QueryDocumentSnapshot doc;
 
   @override
   State<NotePage> createState() => _NotePageState();
@@ -21,7 +20,7 @@ class _NotePageState extends State<NotePage>
   {
     return Scaffold
     (
-      backgroundColor: widget.gelencolor,
+      backgroundColor: colors[widget.doc["note_color"]],
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
@@ -52,12 +51,12 @@ class _NotePageState extends State<NotePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children:
               [
-                Text(notes[widget.gelenIndex]["title"],
+                Text(widget.doc["note_title"],
                 style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
                 const SizedBox(height: 10),
                 Container(color: Colors.black26,height: 1),
                 const SizedBox(height: 50),
-                Text(notes[widget.gelenIndex]["note"]),
+                Text(widget.doc["note"]),
               ],
             ),
           ),
@@ -70,7 +69,7 @@ class _NotePageState extends State<NotePage>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:
               [
-                Text("En son değiştirme tarihi: ${notes[widget.gelenIndex]["lastChange"]}"),
+                Text("En son değiştirme tarihi: ${widget.doc["note_date"]}"),
                 ColorList(),
               ],
             ),

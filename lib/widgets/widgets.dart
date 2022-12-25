@@ -14,21 +14,25 @@ Widget avatar() => GestureDetector
   ),
 );
 
-Widget noteCards(QueryDocumentSnapshot doc)
+Widget noteCards(Function() tap,QueryDocumentSnapshot doc)
 {
-  return Card
+  return InkWell
   (
-    color: colors[doc['note_color']],
-    elevation: 5,
-    shape: RoundedRectangleBorder
+    onTap: tap,
+    child: Card
     (
-      borderRadius: BorderRadius.circular(10),
-      side: const BorderSide(width: 0.3,color: Colors.grey)
-    ),
-    child: ListTile
-    (
-      title: Text(doc["note_title"]),
-      subtitle: Text(doc["note"]),
+      color: colors[doc['note_color']],
+      elevation: 5,
+      shape: RoundedRectangleBorder
+      (
+        borderRadius: BorderRadius.circular(10),
+        side: const BorderSide(width: 0.3,color: Colors.grey)
+      ),
+      child: ListTile
+      (
+        title: Text(doc["note_title"]),
+        subtitle: Text(doc["note"]),
+      ),
     ),
   );
 }
