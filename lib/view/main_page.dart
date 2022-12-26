@@ -67,7 +67,7 @@ class _NotesPageState extends State<NotesPage>
               ),
               children: snapshot.data!.docs.map((note) => noteCards
               (
-                (() => Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: note,)))),
+                (() => Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: note)))),
                 note
               )).toList(),
             );
@@ -77,7 +77,7 @@ class _NotesPageState extends State<NotesPage>
       ),
       floatingActionButton: addNoteButton
       (
-        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNotePage()))
+        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNotePage())),
       ),
     );
   }

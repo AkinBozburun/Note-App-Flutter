@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/style/app_styles.dart';
+import 'package:my_notes_app/widgets/color_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class AddNotePage extends StatefulWidget
@@ -54,13 +55,7 @@ class _AddNotePageState extends State<AddNotePage>
               children:
               [
                 Text("Düzenlenme tarihi: 26 Aralık",style: AppStyle.dateStyle),
-                colorList(()
-                {
-                  setState(()
-                  {
-
-                  });
-                }),
+                const ColorListWidget(),
               ],
             ),
           ),

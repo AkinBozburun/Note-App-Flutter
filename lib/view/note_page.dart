@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/style/app_styles.dart';
+import 'package:my_notes_app/widgets/color_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotePage extends StatefulWidget
@@ -15,24 +16,35 @@ class NotePage extends StatefulWidget
 
 class _NotePageState extends State<NotePage>
 {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
+
+  @override
+  void initState()
+  {
+    _titleController.text = widget.doc["note_title"];
+    _noteController.text = widget.doc["note"];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context)
   {
+    //int colorIndex = Provider.of<Providers>(context).index;
+
     return Scaffold
     (
-      backgroundColor: AppStyle.colors[widget.doc["note_color"]],
+      backgroundColor: //AppStyle.colors[colorIndex],
+      AppStyle.colors[widget.doc["note_color"]],
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: backButton(() => Navigator.pop(context)),
-        actions:
-        [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.undo_outlined),color: Colors.black),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
-        ],
+        centerTitle: true,
+        title: Text("${widget.doc["note_date"]}",style: AppStyle.dateStyle),
+        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.delete),color: Colors.black)],
       ),
       body: Stack
       (
@@ -47,26 +59,51 @@ class _NotePageState extends State<NotePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children:
               [
-                Text(widget.doc["note_title"],
-                style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w500)),
-                const SizedBox(height: 10),
-                Container(color: Colors.black26,height: 1),
-                const SizedBox(height: 50),
-                Text(widget.doc["note"]),
+                TextField //Title
+                (
+                  controller: _titleController,
+                  style: AppStyle.titleStyle,
+                  decoration: const InputDecoration
+                  (
+                    hintText: "Başlık",
+                    border: InputBorder.none,
+                  ),
+                ),
+                TextField //Note
+                (
+                  keyboardType: TextInputType.multiline,
+                  controller: _noteController,
+                  maxLines: null,
+                  style: AppStyle.noteStyle,
+                  decoration: const InputDecoration
+                  (
+                    hintText: "Not",
+                    border: InputBorder.none,
+                  ),
+                ),
               ],
             ),
           ),
           Container
           (
             color: Colors.black12,
-            height: 100,
+            height: 85,
             child: Column
             (
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children:
               [
-                Text("En son değiştirme tarihi: ${widget.doc["note_date"]}"),
-                colorList(() {}),
+                Row
+                (
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:
+                  [
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.undo_outlined),color: Colors.black),
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
+                  ],
+                ),
+                const ColorListWidget(),
               ],
             ),
           ),

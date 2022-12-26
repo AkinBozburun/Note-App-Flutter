@@ -53,32 +53,6 @@ Widget addNoteButton(Function() navigator) => FloatingActionButton
   child: const Icon(Icons.add),
 );
 
-Widget colorList(Function()? tap) => SizedBox
-(
-  height: 40,
-  child: ListView.builder
-  (
-    itemCount: AppStyle.colors.length,
-    scrollDirection: Axis.horizontal,
-    itemBuilder: (context, index) => GestureDetector
-    (
-      onTap: tap,
-      child: Container
-      (
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        width: 40,
-        decoration: BoxDecoration
-        (
-          shape: BoxShape.circle,
-          color: AppStyle.colors[index],
-          border: Border.all(color: Colors.black,width: 0.1)
-        ),
-      ),
-    ),
-  ),
-);
-
-
 SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
 (
   statusBarColor: Colors.transparent,

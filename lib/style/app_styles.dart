@@ -7,7 +7,7 @@ class AppStyle
 
   static TextStyle titleStyle = const TextStyle(fontSize: 24,fontWeight: FontWeight.w500);
   static TextStyle noteStyle = const TextStyle(fontSize: 18);
-  static TextStyle dateStyle = const TextStyle(fontSize: 14);
+  static TextStyle dateStyle = const TextStyle(fontSize: 14,color: Colors.black);
 
   static List colors =
   [
