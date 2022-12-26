@@ -55,7 +55,7 @@ class _AddNotePageState extends State<AddNotePage>
               children:
               [
                 Text("Düzenlenme tarihi: 26 Aralık",style: AppStyle.dateStyle),
-                const ColorListWidget(),
+                const ColorListWidget(doc: null,),
               ],
             ),
           ),

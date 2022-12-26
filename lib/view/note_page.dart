@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class NotePage extends StatefulWidget
 {
@@ -27,21 +29,29 @@ class _NotePageState extends State<NotePage>
     super.initState();
   }
 
+  _updateNote()
+  {
+    final docUser = FirebaseFirestore.instance.collection("notes").doc(widget.doc.id);
+    docUser.update
+    ({
+        "note_title" : _titleController.text,
+        "note" : _noteController.text,
+    }).then((value) => Navigator.pop(context));
+  }
+
   @override
   Widget build(BuildContext context)
   {
-    //int colorIndex = Provider.of<Providers>(context).index;
-
+    final prov = Provider.of<Providers>(context);
     return Scaffold
     (
-      backgroundColor: //AppStyle.colors[colorIndex],
-      AppStyle.colors[widget.doc["note_color"]],
+      backgroundColor: AppStyle.colors[widget.doc["note_color"]],
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: backButton(() => Navigator.pop(context)),
+        leading: backButton(() => _updateNote()),
         centerTitle: true,
         title: Text("${widget.doc["note_date"]}",style: AppStyle.dateStyle),
         actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.delete),color: Colors.black)],
@@ -103,7 +113,7 @@ class _NotePageState extends State<NotePage>
                     IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
                   ],
                 ),
-                const ColorListWidget(),
+                ColorListWidget(doc: widget.doc),
               ],
             ),
           ),

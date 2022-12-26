@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:provider/provider.dart';
 
-class ColorListWidget extends StatelessWidget
+class ColorListWidget extends StatefulWidget
 {
-  const ColorListWidget({super.key});
+  const ColorListWidget({super.key, required this.doc});
 
+  final QueryDocumentSnapshot? doc;
+
+  @override
+  State<ColorListWidget> createState() => _ColorListWidgetState();
+}
+
+class _ColorListWidgetState extends State<ColorListWidget>
+{
   @override
   Widget build(BuildContext context) =>SizedBox
   (
@@ -17,7 +24,14 @@ class ColorListWidget extends StatelessWidget
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => GestureDetector
       (
-        onTap: () => Provider.of<Providers>(context,listen: false).changeColor(index),
+        onTap: ()
+        {
+          final docNote = FirebaseFirestore.instance.collection("notes").doc(widget.doc!.id);
+          docNote.update
+          ({
+              "note_color": index
+          }).catchError((onError)=> print(onError));
+        },
         child: Container
         (
           margin: const EdgeInsets.symmetric(horizontal: 5),
