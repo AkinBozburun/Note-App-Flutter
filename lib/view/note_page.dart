@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:my_notes_app/widgets/colors_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotePage extends StatefulWidget
@@ -67,7 +66,7 @@ class _NotePageState extends State<NotePage>
               children:
               [
                 Text("En son değiştirme tarihi: ${widget.doc["note_date"]}"),
-                const ColorList(),
+                colorList(() {}),
               ],
             ),
           ),
