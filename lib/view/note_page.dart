@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/colors_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotePage extends StatefulWidget
 {
-  NotePage({super.key, required this.doc});
+  const NotePage({super.key, required this.doc});
 
-  QueryDocumentSnapshot doc;
+  final QueryDocumentSnapshot doc;
 
   @override
   State<NotePage> createState() => _NotePageState();
@@ -20,17 +21,13 @@ class _NotePageState extends State<NotePage>
   {
     return Scaffold
     (
-      backgroundColor: colors[widget.doc["note_color"]],
+      backgroundColor: AppStyle.colors[widget.doc["note_color"]],
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton
-        (
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
-        ),
+        leading: backButton(() => Navigator.pop(context)),
         actions:
         [
           IconButton(onPressed: (){}, icon: const Icon(Icons.undo_outlined),color: Colors.black),
@@ -70,7 +67,7 @@ class _NotePageState extends State<NotePage>
               children:
               [
                 Text("En son değiştirme tarihi: ${widget.doc["note_date"]}"),
-                ColorList(),
+                const ColorList(),
               ],
             ),
           ),

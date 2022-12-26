@@ -14,6 +14,12 @@ Widget avatar() => GestureDetector
   ),
 );
 
+Widget backButton(Function() press) => IconButton
+(
+  onPressed: press,
+  icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
+);
+
 Widget noteCards(Function() tap,QueryDocumentSnapshot doc)
 {
   return InkWell
@@ -22,14 +28,13 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc)
     child: Card
     (
       color: colors[doc['note_color']],
-      elevation: 5,
       shape: RoundedRectangleBorder
       (
         borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(width: 0.3,color: Colors.grey)
       ),
       child: ListTile
       (
+        contentPadding: const EdgeInsets.all(14),
         title: Text(doc["note_title"]),
         subtitle: Text(doc["note"]),
       ),
@@ -37,16 +42,17 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc)
   );
 }
 
-Widget addNoteButton() => FloatingActionButton
+Widget addNoteButton(Function() navigator) => FloatingActionButton
 (
   backgroundColor: Colors.blueGrey,
   shape: RoundedRectangleBorder
   (
     borderRadius: BorderRadius.circular(15),
   ),
-  onPressed: () => print("eklendi."),
+  onPressed: navigator,
   child: const Icon(Icons.add),
 );
+
 
 SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
 (

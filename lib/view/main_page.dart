@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/style/app_styles.dart';
+import 'package:my_notes_app/view/add_page.dart';
 import 'package:my_notes_app/view/note_page.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
@@ -57,6 +58,7 @@ class _NotesPageState extends State<NotesPage>
           {
             return GridView
             (
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount
               (
                 crossAxisCount: 2,
@@ -73,7 +75,10 @@ class _NotesPageState extends State<NotesPage>
           return const Center(child: Text("Not yok"));
         },
       ),
-      floatingActionButton: addNoteButton(),
+      floatingActionButton: addNoteButton
+      (
+        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNotePage()))
+      ),
     );
   }
 }
