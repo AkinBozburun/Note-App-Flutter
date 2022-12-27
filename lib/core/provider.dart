@@ -1,6 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class Providers extends ChangeNotifier
+class NoteProviders extends ChangeNotifier
 {
+  int colorIndex = 6;
+  changeColor(i,)
+  {
+    colorIndex = i;
+    notifyListeners();
+  }
 }

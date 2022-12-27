@@ -30,8 +30,8 @@ class _AddNotePageState extends State<AddNotePage>
         elevation: 0,
         leading: backButton(()
         {
-          FirebaseFirestore.instance.collection("notes").add(
-          {
+          FirebaseFirestore.instance.collection("notes").add
+          ({
             "note_title" : _titleController.text,
             "note" : _noteController.text,
             "note_date" : DateTime.now().toString(),

@@ -10,7 +10,7 @@ class NotePage extends StatefulWidget
 {
   const NotePage({super.key, required this.doc});
 
-  final QueryDocumentSnapshot doc;
+  final QueryDocumentSnapshot? doc;
 
   @override
   State<NotePage> createState() => _NotePageState();
@@ -24,28 +24,63 @@ class _NotePageState extends State<NotePage>
   @override
   void initState()
   {
-    _titleController.text = widget.doc["note_title"];
-    _noteController.text = widget.doc["note"];
+    _titleController.text = widget.doc?["note_title"] ?? "";
+    _noteController.text = widget.doc?["note"] ?? "";
     super.initState();
   }
 
+  //_initiliazeNote()
+  //{
+  //  FirebaseFirestore.instance.collection("notes").add
+  //  ({
+  //    "note_title" : _titleController.text,
+  //    "note" : _noteController.text,
+  //    "note_date" : DateTime.now().toString(),
+  //    "note_color" : widget.doc?["note_color"]??6
+  //  }).catchError((onError)=> print(onError));
+  //}
+
   _updateNote()
   {
-    final docUser = FirebaseFirestore.instance.collection("notes").doc(widget.doc.id);
-    docUser.update
-    ({
+    final docUser = FirebaseFirestore.instance.collection("notes").doc(widget.doc?.id);
+
+    if(widget.doc?["note_date"] != null)
+    {
+      docUser.update
+      ({
         "note_title" : _titleController.text,
         "note" : _noteController.text,
-    }).then((value) => Navigator.pop(context));
+        "note_date" : DateTime.now().toString(),
+        //"note_color" : Provider.of<Providers>(context,listen: false).colorIndex,
+      }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    }
+    else
+    {
+      FirebaseFirestore.instance.collection("notes").add
+      ({
+        "note_title" : _titleController.text,
+        "note" : _noteController.text,
+        "note_date" : DateTime.now().toString(),
+        "note_color" : Provider.of<NoteProviders>(context,listen: false).colorIndex
+      }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    }
+  }
+
+  _deleteNote()
+  {
+    if(widget.doc?["note_date"] !=null)
+    {
+      final docUser = FirebaseFirestore.instance.collection("notes").doc(widget.doc!.id);
+      docUser.delete().then((value) => Navigator.pop(context));
+    }
   }
 
   @override
   Widget build(BuildContext context)
   {
-    final prov = Provider.of<Providers>(context);
     return Scaffold
     (
-      backgroundColor: AppStyle.colors[widget.doc["note_color"]],
+      backgroundColor: AppStyle.colors[widget.doc?["note_color"] ?? 6],
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
@@ -53,8 +88,8 @@ class _NotePageState extends State<NotePage>
         elevation: 0,
         leading: backButton(() => _updateNote()),
         centerTitle: true,
-        title: Text("${widget.doc["note_date"]}",style: AppStyle.dateStyle),
-        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.delete),color: Colors.black)],
+        title: Text("${widget.doc?["note_date"] ?? ""}",style: AppStyle.dateStyle),
+        actions: [IconButton(onPressed: ()=> _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black)],
       ),
       body: Stack
       (
@@ -110,7 +145,7 @@ class _NotePageState extends State<NotePage>
                   [
                     IconButton(onPressed: (){}, icon: const Icon(Icons.undo_outlined),color: Colors.black),
                     IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
+                    //IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
                   ],
                 ),
                 ColorListWidget(doc: widget.doc),

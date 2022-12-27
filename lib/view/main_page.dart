@@ -77,7 +77,7 @@ class _NotesPageState extends State<NotesPage>
       ),
       floatingActionButton: addNoteButton
       (
-        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNotePage())),
+        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotePage(doc: null,))),
       ),
     );
   }
