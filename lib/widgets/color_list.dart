@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:provider/provider.dart';
 
 class ColorListWidget extends StatefulWidget
 {
-  const ColorListWidget({super.key, required this.doc});
+  const ColorListWidget({super.key, required this.id});
 
-  final QueryDocumentSnapshot? doc;
+  final String id;
 
   @override
   State<ColorListWidget> createState() => _ColorListWidgetState();
@@ -28,18 +26,12 @@ class _ColorListWidgetState extends State<ColorListWidget>
       (
         onTap: ()
         {
-          if(widget.doc?["note_color"]!=null)
-          {
-            final docNote = FirebaseFirestore.instance.collection("notes").doc(widget.doc?.id);
-            docNote.update
-            ({
-                "note_color": index
-            }).catchError((onError)=> print(onError));
-          }
-          else
-          {
-            Provider.of<NoteProviders>(context,listen: false).changeColor(index);
-          }
+          final docNote = FirebaseFirestore.instance.collection("notes").doc(widget.id);
+          docNote.update
+          ({
+              "note_color": index
+          }).catchError((onError)=> print(onError));
+
         },
         child: Container
         (

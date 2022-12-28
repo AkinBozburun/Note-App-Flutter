@@ -1,10 +1,9 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
 class NotePage extends StatefulWidget
 {
@@ -21,58 +20,68 @@ class _NotePageState extends State<NotePage>
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
+  String? id;
+
   @override
   void initState()
   {
+    id = widget.doc?.id ?? "note${Random().nextInt(1000)}";
+    _initiliazeNote();
     _titleController.text = widget.doc?["note_title"] ?? "";
     _noteController.text = widget.doc?["note"] ?? "";
     super.initState();
   }
 
-  //_initiliazeNote()
-  //{
-  //  FirebaseFirestore.instance.collection("notes").add
-  //  ({
-  //    "note_title" : _titleController.text,
-  //    "note" : _noteController.text,
-  //    "note_date" : DateTime.now().toString(),
-  //    "note_color" : widget.doc?["note_color"]??6
-  //  }).catchError((onError)=> print(onError));
-  //}
+  _initiliazeNote()
+  {
+    if(widget.doc?.data() == null)
+    {
+      FirebaseFirestore.instance.collection("notes").doc(id).set
+      ({
+        "note_title" : _titleController.text,
+        "note" : _noteController.text,
+        "note_date" : "",
+        "note_color" : 6
+      });
+    }
+  }
+
+  _noteColor()
+  {
+    final noteStreamData = FirebaseFirestore.instance.collection("notes").doc(id).snapshots();
+
+    return StreamBuilder<DocumentSnapshot>
+    (
+      stream: noteStreamData,
+      builder:(context, AsyncSnapshot<DocumentSnapshot> snapshot)
+      {
+        if(snapshot.hasData)
+        {
+          return Container(color: AppStyle.colors[snapshot.data!["note_color"]]);
+        }
+        return const Center();
+      },
+    );
+
+  }
 
   _updateNote()
   {
-    final docUser = FirebaseFirestore.instance.collection("notes").doc(widget.doc?.id);
+    final docUser = FirebaseFirestore.instance.collection("notes").doc(id);
 
-    if(widget.doc?["note_date"] != null)
-    {
-      docUser.update
-      ({
-        "note_title" : _titleController.text,
-        "note" : _noteController.text,
-        "note_date" : DateTime.now().toString(),
-        //"note_color" : Provider.of<Providers>(context,listen: false).colorIndex,
-      }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
-    }
-    else
-    {
-      FirebaseFirestore.instance.collection("notes").add
-      ({
-        "note_title" : _titleController.text,
-        "note" : _noteController.text,
-        "note_date" : DateTime.now().toString(),
-        "note_color" : Provider.of<NoteProviders>(context,listen: false).colorIndex
-      }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
-    }
+    docUser.update
+    ({
+      "note_title" : _titleController.text,
+      "note" : _noteController.text,
+      "note_date" : DateTime.now().toString(),
+    }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+
   }
 
   _deleteNote()
   {
-    if(widget.doc?["note_date"] !=null)
-    {
-      final docUser = FirebaseFirestore.instance.collection("notes").doc(widget.doc!.id);
-      docUser.delete().then((value) => Navigator.pop(context));
-    }
+    final docUser = FirebaseFirestore.instance.collection("notes").doc(id);
+    docUser.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
   }
 
   @override
@@ -80,7 +89,7 @@ class _NotePageState extends State<NotePage>
   {
     return Scaffold
     (
-      backgroundColor: AppStyle.colors[widget.doc?["note_color"] ?? 6],
+      extendBodyBehindAppBar: true,
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
@@ -96,37 +105,41 @@ class _NotePageState extends State<NotePage>
         alignment: Alignment.bottomLeft,
         children:
         [
-          Padding
+          _noteColor(),
+          SafeArea
           (
-            padding: const EdgeInsets.all(20),
-            child: Column
+            child: Padding
             (
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:
-              [
-                TextField //Title
-                (
-                  controller: _titleController,
-                  style: AppStyle.titleStyle,
-                  decoration: const InputDecoration
+              padding: const EdgeInsets.all(20),
+              child: Column
+              (
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:
+                [
+                  TextField //Title
                   (
-                    hintText: "Başlık",
-                    border: InputBorder.none,
+                    controller: _titleController,
+                    style: AppStyle.titleStyle,
+                    decoration: const InputDecoration
+                    (
+                      hintText: "Başlık",
+                      border: InputBorder.none,
+                    ),
                   ),
-                ),
-                TextField //Note
-                (
-                  keyboardType: TextInputType.multiline,
-                  controller: _noteController,
-                  maxLines: null,
-                  style: AppStyle.noteStyle,
-                  decoration: const InputDecoration
+                  TextField //Note
                   (
-                    hintText: "Not",
-                    border: InputBorder.none,
+                    keyboardType: TextInputType.multiline,
+                    controller: _noteController,
+                    maxLines: null,
+                    style: AppStyle.noteStyle,
+                    decoration: const InputDecoration
+                    (
+                      hintText: "Not",
+                      border: InputBorder.none,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container
@@ -145,10 +158,9 @@ class _NotePageState extends State<NotePage>
                   [
                     IconButton(onPressed: (){}, icon: const Icon(Icons.undo_outlined),color: Colors.black),
                     IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
-                    //IconButton(onPressed: (){}, icon: const Icon(Icons.save_outlined),color: Colors.black),
                   ],
                 ),
-                ColorListWidget(doc: widget.doc),
+                ColorListWidget(id: id!),
               ],
             ),
           ),

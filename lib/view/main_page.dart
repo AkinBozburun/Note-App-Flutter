@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:my_notes_app/view/add_page.dart';
 import 'package:my_notes_app/view/note_page.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
@@ -77,7 +76,7 @@ class _NotesPageState extends State<NotesPage>
       ),
       floatingActionButton: addNoteButton
       (
-        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotePage(doc: null,))),
+        () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotePage(doc: null))),
       ),
     );
   }
