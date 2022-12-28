@@ -30,7 +30,7 @@ class _NotesPageState extends State<NotesPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children:
           [
-            Text("Welcome",style: TextStyle(color: Colors.grey.shade600,fontSize: 16)),
+            Text("Selam!",style: AppStyle.hiStyle),
             Text(kullanici,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
           ],
         ),

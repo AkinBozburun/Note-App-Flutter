@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 class AppStyle
 {
+  static TextStyle hiStyle = TextStyle(color: Colors.grey.shade600,fontSize: 16);
+
   static Color noteColor = Colors.yellow.shade200;
   static const Color backgroundColor = Color(0xffF5F5F5);
 
   static TextStyle titleStyle = const TextStyle(fontSize: 24,fontWeight: FontWeight.w500);
   static TextStyle noteStyle = const TextStyle(fontSize: 18);
   static TextStyle dateStyle = const TextStyle(fontSize: 14,color: Colors.black);
+
 
   static List colors =
   [

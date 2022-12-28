@@ -80,8 +80,9 @@ class _NotePageState extends State<NotePage>
 
   _deleteNote()
   {
-    final docUser = FirebaseFirestore.instance.collection("notes").doc(id);
-    docUser.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    Navigator.pop(context);
+    //final docUser = FirebaseFirestore.instance.collection("notes").doc(id);
+    //docUser.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
   }
 
   @override
