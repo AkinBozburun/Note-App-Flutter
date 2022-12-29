@@ -30,7 +30,7 @@ class _NotesPageState extends State<NotesPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children:
           [
-            Text("Selam!",style: AppStyle.hiStyle),
+            Text("Selam",style: AppStyle.hiStyle),
             Text(kullanici,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
           ],
         ),
@@ -43,8 +43,7 @@ class _NotesPageState extends State<NotesPage>
           child: avatar(),
         )],
       ),
-      body:
-      StreamBuilder<QuerySnapshot>
+      body: StreamBuilder<QuerySnapshot>
       (
         stream: FirebaseFirestore.instance.collection("notes").snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot)

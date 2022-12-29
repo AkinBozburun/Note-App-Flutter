@@ -48,23 +48,6 @@ class _NotePageState extends State<NotePage>
     }
   }
 
-  _noteColor()
-  {
-    return StreamBuilder<DocumentSnapshot>
-    (
-      stream: fireStore.snapshots(),
-      builder:(context, AsyncSnapshot<DocumentSnapshot> snapshot)
-      {
-        if(snapshot.hasData)
-        {
-          return Container(color: AppStyle.colors[snapshot.data!["note_color"]]);
-        }
-        return const Center();
-      },
-    );
-
-  }
-
   _updateNote()
   {
     fireStore.update
@@ -77,8 +60,7 @@ class _NotePageState extends State<NotePage>
 
   _deleteNote()
   {
-    Navigator.pop(context);
-    //fireStore.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    fireStore.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
   }
 
   @override
@@ -102,7 +84,7 @@ class _NotePageState extends State<NotePage>
         alignment: Alignment.bottomLeft,
         children:
         [
-          _noteColor(),
+          noteColor(fireStore),
           SafeArea
           (
             child: Padding

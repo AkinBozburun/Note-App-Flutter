@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 
+SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
+(
+  statusBarColor: Colors.transparent,
+  statusBarIconBrightness: Brightness.dark,
+);
+
 Widget avatar() => GestureDetector
 (
   onTap: () => print("auth"),
@@ -12,12 +18,6 @@ Widget avatar() => GestureDetector
     backgroundColor: Colors.blueGrey,
     child: Text("A"),
   ),
-);
-
-Widget backButton(Function() press) => IconButton
-(
-  onPressed: press,
-  icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
 );
 
 Widget noteCards(Function() tap,QueryDocumentSnapshot doc)
@@ -53,8 +53,25 @@ Widget addNoteButton(Function() navigator) => FloatingActionButton
   child: const Icon(Icons.add),
 );
 
-SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
+Widget backButton(Function() press) => IconButton
 (
-  statusBarColor: Colors.transparent,
-  statusBarIconBrightness: Brightness.dark,
+  onPressed: press,
+  icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
+);
+
+Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
+(
+  stream: fireStore.snapshots(),
+  builder:(context, AsyncSnapshot<DocumentSnapshot> snapshot)
+  {
+    if(snapshot.data?.exists ?? snapshot.hasData)
+    {
+      return AnimatedContainer
+      (
+        duration: const Duration(milliseconds: 100),
+        color: AppStyle.colors[snapshot.data?["note_color"]]
+      );
+    }
+    return const Center();
+  },
 );
