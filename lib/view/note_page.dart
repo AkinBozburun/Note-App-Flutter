@@ -55,12 +55,12 @@ class _NotePageState extends State<NotePage>
       "note_title" : _titleController.text,
       "note" : _noteController.text,
       "note_date" : DateTime.now().toString(),
-    }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    }).then((value) => Navigator.pop(context));
   }
 
   _deleteNote()
   {
-    fireStore.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    fireStore.delete().then((value) => Navigator.pop(context));
   }
 
   @override

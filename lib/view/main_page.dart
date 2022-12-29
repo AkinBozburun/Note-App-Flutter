@@ -14,7 +14,7 @@ class NotesPage extends StatefulWidget
 
 class _NotesPageState extends State<NotesPage>
 {
-  String kullanici = "Akın Bozburun";
+  String kullanici = "Kullanıcı";
 
   @override
   Widget build(BuildContext context)

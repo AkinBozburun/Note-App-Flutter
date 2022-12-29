@@ -20,27 +20,24 @@ Widget avatar() => GestureDetector
   ),
 );
 
-Widget noteCards(Function() tap,QueryDocumentSnapshot doc)
-{
-  return InkWell
+Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
+(
+  onTap: tap,
+  child: Card
   (
-    onTap: tap,
-    child: Card
+    color: AppStyle.colors[doc['note_color']],
+    shape: RoundedRectangleBorder
     (
-      color: AppStyle.colors[doc['note_color']],
-      shape: RoundedRectangleBorder
-      (
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile
-      (
-        contentPadding: const EdgeInsets.all(14),
-        title: Text(doc["note_title"]),
-        subtitle: Text(doc["note"]),
-      ),
+      borderRadius: BorderRadius.circular(10),
     ),
-  );
-}
+    child: ListTile
+    (
+      contentPadding: const EdgeInsets.all(14),
+      title: Text(doc["note_title"]),
+      subtitle: Text(doc["note"]),
+    ),
+  ),
+);
 
 Widget addNoteButton(Function() navigator) => FloatingActionButton
 (
