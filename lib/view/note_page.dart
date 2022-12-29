@@ -21,11 +21,13 @@ class _NotePageState extends State<NotePage>
   final TextEditingController _noteController = TextEditingController();
 
   String? id;
+  late final fireStore;
 
   @override
   void initState()
   {
     id = widget.doc?.id ?? "note${Random().nextInt(1000)}";
+    fireStore = FirebaseFirestore.instance.collection("notes").doc(id);
     _initiliazeNote();
     _titleController.text = widget.doc?["note_title"] ?? "";
     _noteController.text = widget.doc?["note"] ?? "";
@@ -36,7 +38,7 @@ class _NotePageState extends State<NotePage>
   {
     if(widget.doc?.data() == null)
     {
-      FirebaseFirestore.instance.collection("notes").doc(id).set
+      fireStore.set
       ({
         "note_title" : _titleController.text,
         "note" : _noteController.text,
@@ -48,11 +50,9 @@ class _NotePageState extends State<NotePage>
 
   _noteColor()
   {
-    final noteStreamData = FirebaseFirestore.instance.collection("notes").doc(id).snapshots();
-
     return StreamBuilder<DocumentSnapshot>
     (
-      stream: noteStreamData,
+      stream: fireStore.snapshots(),
       builder:(context, AsyncSnapshot<DocumentSnapshot> snapshot)
       {
         if(snapshot.hasData)
@@ -67,22 +67,18 @@ class _NotePageState extends State<NotePage>
 
   _updateNote()
   {
-    final docUser = FirebaseFirestore.instance.collection("notes").doc(id);
-
-    docUser.update
+    fireStore.update
     ({
       "note_title" : _titleController.text,
       "note" : _noteController.text,
       "note_date" : DateTime.now().toString(),
     }).then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
-
   }
 
   _deleteNote()
   {
     Navigator.pop(context);
-    //final docUser = FirebaseFirestore.instance.collection("notes").doc(id);
-    //docUser.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
+    //fireStore.delete().then((value) => Navigator.pop(context)).catchError((onError)=> print(onError));
   }
 
   @override
