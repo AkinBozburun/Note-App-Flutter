@@ -105,16 +105,20 @@ class _NotePageState extends State<NotePage>
                       border: InputBorder.none,
                     ),
                   ),
-                  TextField //Note
+                  SizedBox
                   (
-                    keyboardType: TextInputType.multiline,
-                    controller: _noteController,
-                    maxLines: null,
-                    style: AppStyle.noteStyle,
-                    decoration: const InputDecoration
+                    height: 200,
+                    child: TextField //Note
                     (
-                      hintText: "Not",
-                      border: InputBorder.none,
+                      controller: _noteController,
+                      maxLines: null,
+                      style: AppStyle.noteStyle,
+                      keyboardType: TextInputType.multiline,
+                      decoration: const InputDecoration
+                      (
+                        hintText: "Not",
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
                 ],
