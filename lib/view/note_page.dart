@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class NotePage extends StatefulWidget
 {
@@ -20,31 +22,19 @@ class _NotePageState extends State<NotePage>
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
-  _undo()
-  {
-    if(_noteController.text != widget.doc?["note"])
-    {
-      print(widget.doc?["note"]);
-      print(_noteController.text);
-    }
-    else
-    {
-      print("aynılar");
-    }
-  }
-
-
   String? id;
   late final fireStore;
 
   @override
   void initState()
   {
+    Provider.of<NoteProvider>(context,listen: false).undoDeactiveColor();
     id = widget.doc?.id ?? "note${Random().nextInt(1000)}";
     fireStore = FirebaseFirestore.instance.collection("notes").doc(id);
     _initiliazeNote();
     _titleController.text = widget.doc?["note_title"] ?? "";
     _noteController.text = widget.doc?["note"] ?? "";
+
     super.initState();
   }
 
@@ -96,9 +86,12 @@ class _NotePageState extends State<NotePage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: backButton(() => _saveNote()),
-        centerTitle: true,
-        title: Text("${widget.doc?["note_date"] ?? ""}",style: AppStyle.dateStyle),
-        actions: [IconButton(onPressed: ()=> _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black)],
+        actions:
+        [
+          undoButton(_noteController, widget.doc,context),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
+          IconButton(onPressed: ()=> _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black),
+        ],
       ),
       body: Stack
       (
@@ -126,22 +119,7 @@ class _NotePageState extends State<NotePage>
                       border: InputBorder.none,
                     ),
                   ),
-                  SizedBox
-                  (
-                    height: 200,
-                    child: TextField //Note
-                    (
-                      controller: _noteController,
-                      maxLines: null,
-                      style: AppStyle.noteStyle,
-                      keyboardType: TextInputType.multiline,
-                      decoration: const InputDecoration
-                      (
-                        hintText: "Not",
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
+                  noteText(_noteController)
                 ],
               ),
             ),
@@ -152,24 +130,38 @@ class _NotePageState extends State<NotePage>
             height: 85,
             child: Column
             (
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:
               [
-                Row
-                (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                  [
-                    undoButton(_noteController, widget.doc),
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
-                  ],
-                ),
+                Text("${widget.doc?["note_date"] ?? ""}",style: AppStyle.dateStyle),
                 ColorListWidget(id: id!),
               ],
             ),
           ),
         ],
       )
+    );
+  }
+  Widget noteText(controller)
+  {
+    final prov = Provider.of<NoteProvider>(context);
+
+    return SizedBox
+    (
+      height: 200,
+      child: TextField //Note
+      (
+        controller: controller,
+        onChanged: (value) => prov.undoActiveColor(value, widget.doc),
+        maxLines: null,
+        style: AppStyle.noteStyle,
+        keyboardType: TextInputType.multiline,
+        decoration: const InputDecoration
+        (
+          hintText: "Not",
+          border: InputBorder.none,
+        ),
+      ),
     );
   }
 }

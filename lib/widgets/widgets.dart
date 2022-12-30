@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
+import 'package:provider/provider.dart';
 
 SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
 (
@@ -56,14 +58,25 @@ Widget backButton(Function() press) => IconButton
   icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
 );
 
-Widget undoButton(TextEditingController cntrlr ,QueryDocumentSnapshot? doc) => IconButton
-(
-  onPressed: ()
-  {
-    if(doc?.data() != null) cntrlr.text = doc?["note"];
-  },
-  icon: const Icon(Icons.undo_outlined),color: Colors.grey
-);
+Widget undoButton(cntrlr, QueryDocumentSnapshot? doc, con)
+{
+  final prov = Provider.of<NoteProvider>(con);
+
+  return IconButton
+  (
+    onPressed: ()
+    {
+      if(doc?.data() != null)
+      {
+        if(cntrlr.text != doc?["note"])
+        {
+          cntrlr.text = doc?["note"];
+        }
+      }
+    },
+    icon: const Icon(Icons.undo_outlined),color: prov.color
+  );
+}
 
 Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
 (
