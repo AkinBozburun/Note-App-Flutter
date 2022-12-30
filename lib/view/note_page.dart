@@ -20,6 +20,20 @@ class _NotePageState extends State<NotePage>
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
+  _undo()
+  {
+    if(_noteController.text != widget.doc?["note"])
+    {
+      print(widget.doc?["note"]);
+      print(_noteController.text);
+    }
+    else
+    {
+      print("aynılar");
+    }
+  }
+
+
   String? id;
   late final fireStore;
 
@@ -48,14 +62,21 @@ class _NotePageState extends State<NotePage>
     }
   }
 
-  _updateNote()
+  _saveNote()
   {
-    fireStore.update
-    ({
-      "note_title" : _titleController.text,
-      "note" : _noteController.text,
-      "note_date" : DateTime.now().toString(),
-    }).then((value) => Navigator.pop(context));
+    if(_noteController.text != widget.doc?["note"])
+    {
+      fireStore.update
+      ({
+        "note_title" : _titleController.text,
+        "note" : _noteController.text,
+        "note_date" : DateTime.now().toString(),
+      }).then((value)=> Navigator.pop(context));
+    }
+    else
+    {
+      Navigator.pop(context);
+    }
   }
 
   _deleteNote()
@@ -74,7 +95,7 @@ class _NotePageState extends State<NotePage>
         systemOverlayStyle: tranparentStatusBar(),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: backButton(() => _updateNote()),
+        leading: backButton(() => _saveNote()),
         centerTitle: true,
         title: Text("${widget.doc?["note_date"] ?? ""}",style: AppStyle.dateStyle),
         actions: [IconButton(onPressed: ()=> _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black)],
@@ -125,7 +146,7 @@ class _NotePageState extends State<NotePage>
               ),
             ),
           ),
-          Container
+          Container //Color list
           (
             color: Colors.black12,
             height: 85,
@@ -139,7 +160,7 @@ class _NotePageState extends State<NotePage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:
                   [
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.undo_outlined),color: Colors.black),
+                    undoButton(_noteController, widget.doc),
                     IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
                   ],
                 ),

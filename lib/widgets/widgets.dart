@@ -56,6 +56,15 @@ Widget backButton(Function() press) => IconButton
   icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
 );
 
+Widget undoButton(TextEditingController cntrlr ,QueryDocumentSnapshot? doc) => IconButton
+(
+  onPressed: ()
+  {
+    if(doc?.data() != null) cntrlr.text = doc?["note"];
+  },
+  icon: const Icon(Icons.undo_outlined),color: Colors.grey
+);
+
 Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
 (
   stream: fireStore.snapshots(),

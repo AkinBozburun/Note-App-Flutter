@@ -36,7 +36,7 @@ class _ColorListWidgetState extends State<ColorListWidget>
         child: Container
         (
           margin: const EdgeInsets.symmetric(horizontal: 5),
-          width: 40,
+          width: 50,
           decoration: BoxDecoration
           (
             color: AppStyle.colors[index],
