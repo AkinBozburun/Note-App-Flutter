@@ -21,6 +21,7 @@ class _NotePageState extends State<NotePage>
 {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+  final TextEditingController _noteControllerforRedo = TextEditingController();
 
   String? id;
   late final fireStore;
@@ -28,7 +29,7 @@ class _NotePageState extends State<NotePage>
   @override
   void initState()
   {
-    Provider.of<NoteProvider>(context,listen: false).undoInitializeColor();
+    Provider.of<NoteProvider>(context,listen: false).initializeColor();
     id = widget.doc?.id ?? "note${Random().nextInt(1000)}";
     fireStore = FirebaseFirestore.instance.collection("notes").doc(id);
     _initiliazeNote();
@@ -99,7 +100,7 @@ class _NotePageState extends State<NotePage>
               }
             }
           },context),
-          redoButton(),
+          redoButton(() => _noteController.text = _noteControllerforRedo.text),
           IconButton(onPressed: () => _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black),
         ],
       ),
@@ -149,7 +150,11 @@ class _NotePageState extends State<NotePage>
       child: TextField //Note
       (
         controller: controller,
-        onChanged: (value) => prov.undoActiveColor(value, widget.doc),
+        onChanged: (value)
+        {
+          _noteControllerforRedo.text = _noteController.text;
+          prov.undoActiveColor(value, widget.doc);
+        },
         maxLines: null,
         style: AppStyle.noteStyle,
         keyboardType: TextInputType.multiline,

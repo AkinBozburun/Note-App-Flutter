@@ -66,15 +66,15 @@ Widget undoButton(Function() undo,con)
   return IconButton
   (
     onPressed: undo,
-    icon: const Icon(Icons.undo_outlined),color: prov.color
+    icon: const Icon(Icons.undo_outlined),color: prov.undoColor
   );
 }
 
-Widget redoButton()
+Widget redoButton(Function() redo)
 {
   return IconButton
   (
-    onPressed: (){},
+    onPressed: redo,
     icon: const Icon(Icons.redo_outlined),
     color: Colors.black12
   );

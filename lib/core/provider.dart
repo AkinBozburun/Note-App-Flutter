@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 
 class NoteProvider extends ChangeNotifier
 {
-  late Color color;
+  late Color undoColor;
+  late Color redoColor;
+
+  initializeColor()
+  {
+    undoColor = Colors.black12;
+    redoColor = Colors.black12;
+  }
 
   undoActiveColor(txt, doc)
   {
@@ -11,25 +18,35 @@ class NoteProvider extends ChangeNotifier
       if(txt != doc?["note"])
       {
         print("oky");
-        color = Colors.black;
+        undoColor = Colors.black;
         notifyListeners();
       }
       if(txt == doc?["note"])
       {
-        color = Colors.grey;
+        undoColor = Colors.black12;
         notifyListeners();
       }
     }
   }
-
-  undoInitializeColor()
-  {
-    color = Colors.black12;
-  }
-
   undoDeactiveColor()
   {
-    color = Colors.black12;
+    undoColor = Colors.black12;
     notifyListeners();
+  }
+
+
+  redoActiveColor(txt1,txt2)
+  {
+    if(txt1 != txt2)
+    {
+      print("oky");
+      undoColor = Colors.black;
+      notifyListeners();
+    }
+    if(txt1 == txt2)
+    {
+      undoColor = Colors.black12;
+      notifyListeners();
+    }
   }
 }
