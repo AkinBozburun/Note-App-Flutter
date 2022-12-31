@@ -15,9 +15,9 @@ class ColorListWidget extends StatefulWidget
 class _ColorListWidgetState extends State<ColorListWidget>
 {
   @override
-  Widget build(BuildContext context) =>SizedBox
+  Widget build(BuildContext context) => SizedBox
   (
-    height: 30,
+    height: 35,
     child: ListView.builder
     (
       itemCount: AppStyle.colors.length,
@@ -27,9 +27,9 @@ class _ColorListWidgetState extends State<ColorListWidget>
         onTap: ()
         {
           final docNote = FirebaseFirestore.instance.collection("notes").doc(widget.id);
-          docNote.update
-          ({
-              "note_color": index
+          docNote.update(
+          {
+             "note_color": index
           }).catchError((onError)=> print(onError));
 
         },

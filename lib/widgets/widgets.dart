@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
+import 'package:my_notes_app/widgets/color_list_build.dart';
 import 'package:provider/provider.dart';
 
 SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
@@ -95,3 +96,32 @@ Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
     return const Center();
   },
 );
+
+Widget colorsBar(doc,id)
+{
+  if(doc?["note_date"] == null)
+  {
+    return Container
+    (
+      height: 50,
+      color: Colors.black12,
+      child: Column(mainAxisAlignment: MainAxisAlignment.center,children:[ColorListWidget(id: id)],
+      )
+    );
+  }
+  return Container //Color list
+  (
+    color: Colors.black12,
+    height: 85,
+    child: Column
+    (
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:
+      [
+        Text("Düzenlenme tarihi: ${doc?["note_date"]}",style: AppStyle.dateStyle),
+        const SizedBox(height: 10),
+        ColorListWidget(id: id!),
+      ],
+    ),
+  );
+}

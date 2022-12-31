@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:my_notes_app/widgets/color_list.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -135,20 +134,7 @@ class _NotePageState extends State<NotePage>
               ),
             ),
           ),
-          Container //Color list
-          (
-            color: Colors.black12,
-            height: 85,
-            child: Column
-            (
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:
-              [
-                Text(widget.doc?["note_date"] == null ? "" : "Düzenlenme tarihi: ${widget.doc?["note_date"]}",style: AppStyle.dateStyle),
-                ColorListWidget(id: id!),
-              ],
-            ),
-          ),
+          colorsBar(widget.doc, id)
         ],
       )
     );
