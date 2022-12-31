@@ -58,23 +58,24 @@ Widget backButton(Function() press) => IconButton
   icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
 );
 
-Widget undoButton(cntrlr, QueryDocumentSnapshot? doc, con)
+Widget undoButton(Function() undo,con)
 {
   final prov = Provider.of<NoteProvider>(con);
 
   return IconButton
   (
-    onPressed: ()
-    {
-      if(doc?.data() != null)
-      {
-        if(cntrlr.text != doc?["note"])
-        {
-          cntrlr.text = doc?["note"];
-        }
-      }
-    },
+    onPressed: undo,
     icon: const Icon(Icons.undo_outlined),color: prov.color
+  );
+}
+
+Widget redoButton()
+{
+  return IconButton
+  (
+    onPressed: (){},
+    icon: const Icon(Icons.redo_outlined),
+    color: Colors.black12
   );
 }
 

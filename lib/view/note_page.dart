@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_notes_app/core/provider.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list.dart';
@@ -28,7 +29,7 @@ class _NotePageState extends State<NotePage>
   @override
   void initState()
   {
-    Provider.of<NoteProvider>(context,listen: false).undoDeactiveColor();
+    Provider.of<NoteProvider>(context,listen: false).undoInitializeColor();
     id = widget.doc?.id ?? "note${Random().nextInt(1000)}";
     fireStore = FirebaseFirestore.instance.collection("notes").doc(id);
     _initiliazeNote();
@@ -60,7 +61,7 @@ class _NotePageState extends State<NotePage>
       ({
         "note_title" : _titleController.text,
         "note" : _noteController.text,
-        "note_date" : DateTime.now().toString(),
+        "note_date" : DateFormat("H:mm - d MMM y","tr").format(DateTime.now())
       }).then((value)=> Navigator.pop(context));
     }
     else
@@ -88,9 +89,19 @@ class _NotePageState extends State<NotePage>
         leading: backButton(() => _saveNote()),
         actions:
         [
-          undoButton(_noteController, widget.doc,context),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.redo_outlined),color: Colors.black),
-          IconButton(onPressed: ()=> _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black),
+          undoButton(()
+          {
+            Provider.of<NoteProvider>(context,listen: false).undoDeactiveColor();
+            if(widget.doc?.data() != null)
+            {
+              if(_noteController.text != widget.doc?["note"])
+              {
+                _noteController.text = widget.doc?["note"];
+              }
+            }
+          },context),
+          redoButton(),
+          IconButton(onPressed: () => _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black),
         ],
       ),
       body: Stack
@@ -133,7 +144,7 @@ class _NotePageState extends State<NotePage>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:
               [
-                Text("${widget.doc?["note_date"] ?? ""}",style: AppStyle.dateStyle),
+                Text(widget.doc?["note_date"] == null ? "" : "Düzenlenme tarihi: ${widget.doc?["note_date"]}",style: AppStyle.dateStyle),
                 ColorListWidget(id: id!),
               ],
             ),

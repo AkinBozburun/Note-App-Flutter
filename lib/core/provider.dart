@@ -2,26 +2,34 @@ import 'package:flutter/material.dart';
 
 class NoteProvider extends ChangeNotifier
 {
-  Color color = Colors.grey;
+  late Color color;
 
   undoActiveColor(txt, doc)
   {
-    if(txt != doc?["note"])
+    if(doc?["note"] != null)
     {
-      print("oky");
-      color = Colors.black;
-      notifyListeners();
+      if(txt != doc?["note"])
+      {
+        print("oky");
+        color = Colors.black;
+        notifyListeners();
+      }
+      if(txt == doc?["note"])
+      {
+        color = Colors.grey;
+        notifyListeners();
+      }
+    }
+  }
 
-    }
-    if(txt == doc?["note"])
-    {
-      color = Colors.grey;
-      notifyListeners();
-    }
+  undoInitializeColor()
+  {
+    color = Colors.black12;
   }
 
   undoDeactiveColor()
   {
     color = Colors.black12;
+    notifyListeners();
   }
 }
