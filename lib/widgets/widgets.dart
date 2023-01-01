@@ -70,13 +70,15 @@ Widget undoButton(Function() undo,con)
   );
 }
 
-Widget redoButton(Function() redo)
+Widget redoButton(Function() redo,con)
 {
+  final prov = Provider.of<NoteProvider>(con);
+
   return IconButton
   (
     onPressed: redo,
     icon: const Icon(Icons.redo_outlined),
-    color: Colors.black12
+    color: prov.redoColor
   );
 }
 

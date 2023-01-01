@@ -19,34 +19,31 @@ class NoteProvider extends ChangeNotifier
       {
         print("oky");
         undoColor = Colors.black;
+        redoColor = Colors.black12;
         notifyListeners();
       }
       if(txt == doc?["note"])
       {
+        print("not oky");
         undoColor = Colors.black12;
+        redoColor = Colors.black;
         notifyListeners();
       }
     }
   }
-  undoDeactiveColor()
-  {
-    undoColor = Colors.black12;
-    notifyListeners();
-  }
 
-
-  redoActiveColor(txt1,txt2)
+  redoActiveColor(txt1,doc)
   {
-    if(txt1 != txt2)
-    {
-      print("oky");
-      undoColor = Colors.black;
-      notifyListeners();
-    }
-    if(txt1 == txt2)
-    {
-      undoColor = Colors.black12;
-      notifyListeners();
-    }
+    if(txt1 != doc?["note"])
+      {
+        print("oky");
+        undoColor = Colors.black12;
+        notifyListeners();
+      }
+      if(txt1 == doc?["note"])
+      {
+        undoColor = Colors.black;
+        notifyListeners();
+      }
   }
 }
