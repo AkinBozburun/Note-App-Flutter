@@ -98,23 +98,18 @@ class _NotePageState extends State<NotePage>
                 _noteController.text = widget.doc?["note"];
               }
             }
-            Provider.of<NoteProvider>(context,listen: false).undoActiveColor(_noteController.text, widget.doc);
+            Provider.of<NoteProvider>(context,listen: false).undoRedoColorChange(_noteController.text, widget.doc);
           },context),
           redoButton(()
           {
             if(widget.doc?.data() != null)
             {
-              print("değil");
               if(_noteController.text == widget.doc?["note"] || _noteControllerforRedo.text != "")
               {
                 _noteController.text = _noteControllerforRedo.text;
               }
             }
-            else
-            {
-              print("boş");
-            }
-            Provider.of<NoteProvider>(context,listen: false).undoActiveColor(_noteController.text, widget.doc);
+            Provider.of<NoteProvider>(context,listen: false).undoRedoColorChange(_noteController.text, widget.doc);
           }, context),
           IconButton(onPressed: () => _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black),
         ],
@@ -168,9 +163,8 @@ class _NotePageState extends State<NotePage>
         onChanged: (value)
         {
           _noteControllerforRedo.text = _noteController.text;
-          prov.redoActiveColor(value, widget.doc);
-          prov.undoActiveColor(value, widget.doc);
-          print(value);
+          //prov.redoActiveColor(value, widget.doc);
+          prov.undoRedoColorChange(value, widget.doc);
         },
         maxLines: null,
         style: AppStyle.noteStyle,
