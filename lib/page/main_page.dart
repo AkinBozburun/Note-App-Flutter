@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_notes_app/page/no_internet_page.dart';
 import 'package:my_notes_app/page/note_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
+import 'package:my_notes_app/widgets/auth_dialog.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class MainPage extends StatefulWidget
@@ -38,7 +39,6 @@ class _MainPageState extends State<MainPage>
     }
   }
 
-
   @override
   Widget build(BuildContext context) => Scaffold
   (
@@ -57,11 +57,7 @@ class _MainPageState extends State<MainPage>
       backgroundColor: Colors.transparent,
       elevation: 0,
       toolbarHeight: 100,
-      actions: [Padding
-      (
-        padding: const EdgeInsets.only(right: 20),
-        child: avatar(),
-      )],
+      actions: const [Padding(padding: EdgeInsets.only(right: 20),child: AuthDialog())],
     ),
     body: StreamBuilder<QuerySnapshot>
     (

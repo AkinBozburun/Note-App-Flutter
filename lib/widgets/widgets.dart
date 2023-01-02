@@ -12,17 +12,6 @@ SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
   statusBarIconBrightness: Brightness.dark,
 );
 
-Widget avatar() => GestureDetector
-(
-  onTap: () => print("auth"),
-  child: const CircleAvatar
-  (
-    radius: 24,
-    backgroundColor: Colors.blueGrey,
-    child: Text("A"),
-  ),
-);
-
 Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
 (
   onTap: tap,
