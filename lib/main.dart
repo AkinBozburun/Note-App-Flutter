@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:my_notes_app/core/provider.dart';
+import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/view/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_notes_app/view/no_internet_page.dart';
 import 'package:provider/provider.dart';
 import 'core/firebase_options.dart';
 void main() async
@@ -34,9 +36,10 @@ class MyApp extends StatelessWidget
       debugShowCheckedModeBanner: false,
       theme: ThemeData
       (
+        scaffoldBackgroundColor: AppStyle.backgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const NotesPage(),
+      home: const NoInternetPage()//NotesPage(),
     ),
   );
 }

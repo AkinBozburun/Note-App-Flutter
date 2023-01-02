@@ -21,7 +21,6 @@ class _NotesPageState extends State<NotesPage>
   {
     return Scaffold
     (
-      backgroundColor: AppStyle.backgroundColor,
       appBar: AppBar
       (
         systemOverlayStyle: tranparentStatusBar(),
