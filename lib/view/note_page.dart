@@ -163,7 +163,6 @@ class _NotePageState extends State<NotePage>
         onChanged: (value)
         {
           _noteControllerforRedo.text = _noteController.text;
-          //prov.redoActiveColor(value, widget.doc);
           prov.undoRedoColorChange(value, widget.doc);
         },
         maxLines: null,
