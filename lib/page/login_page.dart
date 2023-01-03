@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/page/register_page.dart';
@@ -14,25 +15,18 @@ class LoginPage extends StatefulWidget
 
 class _LoginPageState extends State<LoginPage>
 {
+  final TextEditingController _mailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  final TextEditingController _mailTxt = TextEditingController();
-  final TextEditingController _passwordTxt = TextEditingController();
+  //final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold
-    (
-      appBar: AppBar
-      (
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        systemOverlayStyle: tranparentStatusBar(),
-        title: Text("Giriş Yap",style: AppStyle.loginTitleStyle),
-        centerTitle: true,
-        toolbarHeight: 120,
-      ),
-      body: SingleChildScrollView
+
+    Widget logInWidget()
+    {
+      return SingleChildScrollView
       (
         child: Padding
         (
@@ -43,7 +37,7 @@ class _LoginPageState extends State<LoginPage>
             [
               TextField //Mail Text
               (
-                controller: _mailTxt,
+                controller: _mailController,
                 decoration: InputDecoration
                 (
                   hintText: "Email Adresi",
@@ -57,7 +51,8 @@ class _LoginPageState extends State<LoginPage>
               const SizedBox(height: 15),
               TextField //Password Text
               (
-                controller: _passwordTxt,
+                controller: _passwordController,
+                obscureText: true,
                 decoration: InputDecoration
                 (
                   hintText: "Parola",
@@ -71,7 +66,7 @@ class _LoginPageState extends State<LoginPage>
               const SizedBox(height: 30),
               InkWell //Log In Button
               (
-                onTap: () => print("Log In"),
+                onTap: () => _logIn(),
                 child: Ink
                 (
                   height: 50,
@@ -111,7 +106,7 @@ class _LoginPageState extends State<LoginPage>
                   children:
                   [
                     Image.asset("images/google.png"),
-                    const Text("Google",
+                    const Text("Google ile devam et",
                     style: TextStyle(color: Colors.black,fontSize: 16)),
                   ])),
                 ),
@@ -132,7 +127,59 @@ class _LoginPageState extends State<LoginPage>
             ],
           ),
         ),
+      );
+    }
+
+    Widget logedInWidget()
+    {
+      return Center
+      (
+        child: Column
+        (
+          children:
+          [
+            const Text("Hoşgeldiniz!"),
+            //Text(user.email!),
+          ],
+        ),
+      );
+    }
+
+    return Scaffold
+    (
+      appBar: AppBar
+      (
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: tranparentStatusBar(),
+        title: Text("Giriş Yap",style: AppStyle.loginTitleStyle),
+        centerTitle: true,
+        toolbarHeight: 120,
       ),
+      body: StreamBuilder<User?>
+      (
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot)
+        {
+          if(snapshot.hasData)
+          {
+            return logedInWidget();
+          }
+          else
+          {
+            return logInWidget();
+          }
+        },
+      )
+    );
+  }
+
+  _logIn() async
+  {
+    await FirebaseAuth.instance.signInWithEmailAndPassword
+    (
+      email: _mailController.text.trim(),
+      password: _passwordController.text.trim(),
     );
   }
 }

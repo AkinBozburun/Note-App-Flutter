@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_notes_app/page/login_page.dart';
 
 class AuthDialog extends StatelessWidget
 {
@@ -38,7 +39,10 @@ class AuthDialog extends StatelessWidget
                     subtitle: Text("example@gmail.com"),
                   ),
                   Container(height: 0.5,color: const Color(0xFF383838)),
-                  ElevatedButton(onPressed: () {}, child: const Text("Çıkış yap"))
+                  ElevatedButton(onPressed:() => Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false),
+                  child: const Text("Çıkış yap"))
                 ],
               ),
             ),

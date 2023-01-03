@@ -14,6 +14,10 @@ class RegisterPage extends StatefulWidget
 
 class _RegisterPageState extends State<RegisterPage>
 {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _mailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context)
   {
@@ -30,14 +34,16 @@ class _RegisterPageState extends State<RegisterPage>
       ),
       body: SingleChildScrollView
       (
-        child: Padding(
+        child: Padding
+        (
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column
           (
             children:
             [
-              TextField //Mail Text
+              TextField //Name Text
               (
+                controller: _nameController,
                 decoration: InputDecoration
                 (
                   hintText: "Adın",
@@ -51,6 +57,7 @@ class _RegisterPageState extends State<RegisterPage>
               const SizedBox(height: 15),
               TextField //Mail Text
               (
+                controller: _mailController,
                 decoration: InputDecoration
                 (
                   hintText: "Email Adresi",
@@ -62,8 +69,10 @@ class _RegisterPageState extends State<RegisterPage>
                 ),
               ),
               const SizedBox(height: 15),
-              TextField //Mail Text
+              TextField //Password Text
               (
+                controller: _passwordController,
+                obscureText: true,
                 decoration: InputDecoration
                 (
                   hintText: "Parola",
@@ -102,7 +111,7 @@ class _RegisterPageState extends State<RegisterPage>
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                   (route) => false),
                 ),
-              ]))
+              ])),
             ],
           ),
         ),

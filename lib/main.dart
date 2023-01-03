@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget
         scaffoldBackgroundColor: AppStyle.backgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage()//MainPage(),
+      home: const MainPage(),
     ),
   );
 }
