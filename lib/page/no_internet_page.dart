@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/page/main_page.dart';
+import 'package:my_notes_app/main.dart';
 
 class NoInternetPage extends StatelessWidget
 {
@@ -13,7 +13,7 @@ class NoInternetPage extends StatelessWidget
     {
       Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const MainPage()),
+      MaterialPageRoute(builder: (context) => const NetCheck()),
       (route) => false);
     }
   }

@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:my_notes_app/page/auth_page.dart';
+import 'package:my_notes_app/page/no_internet_page.dart';
 import 'package:my_notes_app/service/provider.dart';
 import 'package:my_notes_app/page/login_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:my_notes_app/page/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'service/firebase_options.dart';
@@ -24,6 +25,8 @@ void main() async
   runApp(const MyApp());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget
 {
   const MyApp({super.key});
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget
     providers: [ChangeNotifierProvider(create: (context) => NoteProvider())],
     child: MaterialApp
     (
+      navigatorKey: navigatorKey,
       title: 'MyNotes',
       debugShowCheckedModeBanner: false,
       theme: ThemeData
@@ -41,7 +45,44 @@ class MyApp extends StatelessWidget
         scaffoldBackgroundColor: AppStyle.backgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(),
+      home: const NetCheck(),
     ),
   );
+}
+
+class NetCheck extends StatefulWidget
+{
+  const NetCheck({super.key});
+
+  @override
+  State<NetCheck> createState() => _NetCheckState();
+}
+
+class _NetCheckState extends State<NetCheck>
+{
+  Future _netCheck() async
+  {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult;
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return FutureBuilder
+    (
+      future: _netCheck(),
+      builder: (context, snapshot)
+      {
+        if(snapshot.data == ConnectivityResult.none)
+        {
+          return const NoInternetPage();
+        }
+        else
+        {
+          return const AuthPage();
+        }
+      }
+    );
+  }
 }

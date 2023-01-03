@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/page/login_page.dart';
+import 'package:my_notes_app/main.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class RegisterPage extends StatefulWidget
 {
-  const RegisterPage({super.key});
+  final Function() onClickedLogIn;
+
+  const RegisterPage({super.key, required this.onClickedLogIn,});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -17,6 +20,32 @@ class _RegisterPageState extends State<RegisterPage>
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController = TextEditingController();
+
+  Future<void> _register() async
+  {
+    showDialog
+    (
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator())
+    );
+
+    try
+    {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword
+      (
+        email: _mailController.text.trim(),
+        password: _passwordController.text.trim()
+      ).then((value) => value.user!.updateDisplayName(_nameController.text.trim()));
+    }
+    on FirebaseAuthException catch (e)
+    {
+      print(e);
+    }
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
 
   @override
   Widget build(BuildContext context)
@@ -83,10 +112,25 @@ class _RegisterPageState extends State<RegisterPage>
                   focusedBorder: AppStyle.txtFieldBorder,
                 ),
               ),
+              const SizedBox(height: 15),
+              TextField //Password Text
+              (
+                controller: _passwordConfirmController,
+                obscureText: true,
+                decoration: InputDecoration
+                (
+                  hintText: "Parolayı doğrula",
+                  prefixIcon: const Icon(Icons.key),
+                  filled: true,
+                  fillColor: Colors.white,
+                  enabledBorder: AppStyle.txtFieldBorder,
+                  focusedBorder: AppStyle.txtFieldBorder,
+                ),
+              ),
               const SizedBox(height: 30),
               InkWell
               (
-                onTap: () => print("Register"),
+                onTap: () => _register(),
                 child: Ink
                 (
                   height: 50,
@@ -106,10 +150,7 @@ class _RegisterPageState extends State<RegisterPage>
                 TextSpan
                 (
                   text: "Giriş Yap",style: AppStyle.singUpTxt,
-                  recognizer: TapGestureRecognizer()..onTap=() =>
-                  Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                  (route) => false),
+                  recognizer: TapGestureRecognizer()..onTap = widget.onClickedLogIn
                 ),
               ])),
             ],

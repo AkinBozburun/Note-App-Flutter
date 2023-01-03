@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/page/no_internet_page.dart';
 import 'package:my_notes_app/page/note_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/auth_dialog.dart';
@@ -17,27 +16,7 @@ class MainPage extends StatefulWidget
 
 class _MainPageState extends State<MainPage>
 {
-  String kullanici = "Kullanıcı";
-
-  @override
-  void initState()
-  {
-    _netCheck();
-    super.initState();
-  }
-
-  _netCheck() async
-  {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if(connectivityResult == ConnectivityResult.none)
-    {
-      if(!mounted) return;
-      Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const NoInternetPage()),
-      (route) => false);
-    }
-  }
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) => Scaffold
@@ -51,13 +30,13 @@ class _MainPageState extends State<MainPage>
         children:
         [
           Text("Selam",style: AppStyle.hiStyle),
-          Text(kullanici,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
+          Text(" ${user.displayName!}",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
         ],
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
       toolbarHeight: 100,
-      actions: const [Padding(padding: EdgeInsets.only(right: 20),child: AuthDialog())],
+      actions: [Padding(padding: const EdgeInsets.only(right: 20),child: AuthDialog(user: user))],
     ),
     body: StreamBuilder<QuerySnapshot>
     (
@@ -86,7 +65,10 @@ class _MainPageState extends State<MainPage>
             )).toList(),
           );
         }
-        return const Center(child: Text("Not yok"));
+        else
+        {
+          return const Center(child: Text("Not yok"));
+        }
       },
     ),
     floatingActionButton: addNoteButton
