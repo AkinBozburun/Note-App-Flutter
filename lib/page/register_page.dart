@@ -1,23 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/page/register_page.dart';
+import 'package:my_notes_app/page/login_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
-class LoginPage extends StatefulWidget
+class RegisterPage extends StatefulWidget
 {
-  const LoginPage({super.key});
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
+class _RegisterPageState extends State<RegisterPage>
 {
-
-  final TextEditingController _mailTxt = TextEditingController();
-  final TextEditingController _passwordTxt = TextEditingController();
-
   @override
   Widget build(BuildContext context)
   {
@@ -28,14 +24,13 @@ class _LoginPageState extends State<LoginPage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: tranparentStatusBar(),
-        title: Text("Giriş Yap",style: AppStyle.loginTitleStyle),
+        title: Text("Hesap Oluştur",style: AppStyle.loginTitleStyle),
         centerTitle: true,
         toolbarHeight: 120,
       ),
       body: SingleChildScrollView
       (
-        child: Padding
-        (
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column
           (
@@ -43,7 +38,19 @@ class _LoginPageState extends State<LoginPage>
             [
               TextField //Mail Text
               (
-                controller: _mailTxt,
+                decoration: InputDecoration
+                (
+                  hintText: "Adın",
+                  prefixIcon: const Icon(Icons.person),
+                  filled: true,
+                  fillColor: Colors.white,
+                  enabledBorder: AppStyle.txtFieldBorder,
+                  focusedBorder: AppStyle.txtFieldBorder,
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField //Mail Text
+              (
                 decoration: InputDecoration
                 (
                   hintText: "Email Adresi",
@@ -55,13 +62,12 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               const SizedBox(height: 15),
-              TextField //Password Text
+              TextField //Mail Text
               (
-                controller: _passwordTxt,
                 decoration: InputDecoration
                 (
                   hintText: "Parola",
-                  prefixIcon: const Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.key),
                   filled: true,
                   fillColor: Colors.white,
                   enabledBorder: AppStyle.txtFieldBorder,
@@ -69,9 +75,9 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               const SizedBox(height: 30),
-              InkWell //Log In Button
+              InkWell
               (
-                onTap: () => print("Log In"),
+                onTap: () => print("Register"),
                 child: Ink
                 (
                   height: 50,
@@ -80,55 +86,23 @@ class _LoginPageState extends State<LoginPage>
                     color: Colors.grey.shade600,
                     borderRadius: BorderRadius.circular(10)
                   ),
-                  child: const Center(child: Text("Giriş Yap",
+                  child: const Center(child: Text("Hesabı Oluştur",
                   style: TextStyle(color: Colors.white,fontSize: 16),)),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Row //OR Separate
-              (
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:
-                [
-                  Container(height: 0.4,width: 120,color: Colors.black),
-                  const Text("Ya da"),
-                  Container(height: 0.4,width: 120,color: Colors.black)
-                ]
-              ),
-              const SizedBox(height: 20),
-              InkWell //Log In with Google
-              (
-                onTap: () => print("Google"),
-                child: Ink
-                (
-                  height: 50,
-                  decoration: BoxDecoration
-                  (
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                  [
-                    Image.asset("images/google.png"),
-                    const Text("Google",
-                    style: TextStyle(color: Colors.black,fontSize: 16)),
-                  ])),
                 ),
               ),
               const SizedBox(height: 30),
               Text.rich(TextSpan(children:
               [
-                const TextSpan(text: "Hesabın yok mu?  "),
+                const TextSpan(text: "Zaten bir hesabın mı var?  "),
                 TextSpan
                 (
-                  text: "Hesap oluştur",style: AppStyle.singUpTxt,
+                  text: "Giriş Yap",style: AppStyle.singUpTxt,
                   recognizer: TapGestureRecognizer()..onTap=() =>
                   Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                   (route) => false),
                 ),
-              ])),
+              ]))
             ],
           ),
         ),
