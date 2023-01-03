@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 
 class AppStyle
 {
+  static TextStyle loginTitleStyle = const TextStyle(color: Colors.black,fontSize: 30);
+
+  static OutlineInputBorder txtFieldBorder = OutlineInputBorder
+  (
+    borderRadius: const BorderRadius.all(Radius.circular(10)),
+    borderSide: BorderSide(color: Colors.grey.shade400),
+  );
+
+  static TextStyle singUpTxt = const TextStyle(color: Colors.blue,decoration: TextDecoration.underline);
+
   static TextStyle hiStyle = TextStyle(color: Colors.grey.shade600,fontSize: 16);
 
   static Color noteColor = Colors.yellow.shade200;
