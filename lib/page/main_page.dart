@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage>
         children:
         [
           Text("Selam",style: AppStyle.hiStyle),
-          Text(" ${user.displayName!}",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
+          Text(" ${user.displayName ?? "Kullanici"}",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
         ],
       ),
       backgroundColor: Colors.transparent,

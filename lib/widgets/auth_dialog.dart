@@ -38,7 +38,7 @@ class AuthDialog extends StatelessWidget
                       backgroundColor: Colors.blueGrey,
                       child: Text("A"),
                     ),
-                    title: Text(user.displayName),
+                    title: Text(user.displayName ?? "Kullanıcı"),
                     subtitle: Text(user.email),
                   ),
                   Container(height: 0.5,color: const Color(0xFF383838)),

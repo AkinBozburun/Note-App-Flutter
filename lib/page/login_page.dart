@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/main.dart';
 import 'package:my_notes_app/page/main_page.dart';
+import 'package:my_notes_app/service/utils.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
@@ -30,13 +31,27 @@ class _LoginPageState extends State<LoginPage>
       builder: (context) => const Center(child: CircularProgressIndicator())
     );
 
-    await FirebaseAuth.instance.signInWithEmailAndPassword
-    (
-      email: _mailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
-
+    try
+    {
+      await FirebaseAuth.instance.signInWithEmailAndPassword
+      (
+        email: _mailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    }
+    on FirebaseAuthException catch (e)
+    {
+      Utils.showSnackBar(e.message);
+    }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  @override
+  void dispose()
+  {
+    _mailController.clear();
+    _passwordController.clear();
+    super.dispose();
   }
 
   @override

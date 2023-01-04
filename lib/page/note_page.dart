@@ -134,6 +134,7 @@ class _NotePageState extends State<NotePage>
                   (
                     controller: _titleController,
                     style: AppStyle.titleStyle,
+                    maxLines: 2,
                     decoration: const InputDecoration
                     (
                       hintText: "Başlık",

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:my_notes_app/page/auth_page.dart';
 import 'package:my_notes_app/page/no_internet_page.dart';
 import 'package:my_notes_app/service/provider.dart';
-import 'package:my_notes_app/page/login_page.dart';
+import 'package:my_notes_app/service/utils.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +27,8 @@ void main() async
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
+final messengerKey = GlobalKey<ScaffoldMessengerState>();
+
 class MyApp extends StatelessWidget
 {
   const MyApp({super.key});
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget
     providers: [ChangeNotifierProvider(create: (context) => NoteProvider())],
     child: MaterialApp
     (
+      scaffoldMessengerKey: messengerKey,
       navigatorKey: navigatorKey,
       title: 'MyNotes',
       debugShowCheckedModeBanner: false,
