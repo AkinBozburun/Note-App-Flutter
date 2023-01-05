@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/page/note_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
@@ -17,6 +18,15 @@ class MainPage extends StatefulWidget
 class _MainPageState extends State<MainPage>
 {
   final user = FirebaseAuth.instance.currentUser!;
+
+  @override
+  void initState()
+  {
+    //FirebaseFirestore.instance.collection("user1").add({});
+    super.initState();
+  }
+
+  //final userID =
 
   @override
   Widget build(BuildContext context) => Scaffold
