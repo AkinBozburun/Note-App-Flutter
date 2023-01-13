@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_notes_app/service/provider.dart';
+import 'package:my_notes_app/service/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -23,15 +23,15 @@ class _NotePageState extends State<NotePage>
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _noteControllerforRedo = TextEditingController();
 
-  String? id;
+  String? noteID;
   late final fireStore;
 
   @override
   void initState()
   {
     Provider.of<NoteProvider>(context,listen: false).initializeColor();
-    id = widget.doc?.id ?? "note${Random().nextInt(1000)}";
-    fireStore = FirebaseFirestore.instance.collection("notes").doc(id);
+    noteID = widget.doc?.id ?? "note${Random().nextInt(1000)}";
+    fireStore = FirebaseFirestore.instance.collection("notes").doc(noteID);
     _initiliazeNote();
     _titleController.text = widget.doc?["note_title"] ?? "";
     _noteController.text = widget.doc?["note"] ?? "";
@@ -55,7 +55,7 @@ class _NotePageState extends State<NotePage>
 
   _saveNote()
   {
-    if(_noteController.text != widget.doc?["note"])
+    if(_noteController.text != widget.doc?["note"] || _titleController != widget.doc?["note_title"])
     {
       fireStore.update
       ({
@@ -146,7 +146,7 @@ class _NotePageState extends State<NotePage>
               ),
             ),
           ),
-          colorsBar(widget.doc, id)
+          colorsBar(widget.doc, noteID)
         ],
       )
     );

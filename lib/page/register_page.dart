@@ -38,22 +38,19 @@ class _RegisterPageState extends State<RegisterPage>
       barrierDismissible: false,
       builder: (context) => const Center(child: CircularProgressIndicator())
     );
-
-    try
+   try
     {
       await FirebaseAuth.instance.createUserWithEmailAndPassword
       (
         email: _mailController.text.trim(),
         password: _passwordController.text.trim()
-      ).then((value) => value.user!.updateDisplayName(_nameController.text.trim()).then((value)
-      => navigatorKey.currentState!.popUntil((route) => route.isFirst)));
+      ).then((value) => value.user!.updateDisplayName(_nameController.text.trim()));
     }
     on FirebaseAuthException catch (e)
     {
       Utils.showSnackBar(e.message);
     }
-
-    ;
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   @override
@@ -150,21 +147,7 @@ class _RegisterPageState extends State<RegisterPage>
                   ),
                 ),
                 const SizedBox(height: 30),
-                InkWell
-                (
-                  onTap: () => _register(),
-                  child: Ink
-                  (
-                    height: 50,
-                    decoration: BoxDecoration
-                    (
-                      color: Colors.grey.shade600,
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: const Center(child: Text("Hesabı Oluştur",
-                    style: TextStyle(color: Colors.white,fontSize: 16),)),
-                  ),
-                ),
+                registerButton(() => _register(), "Hesabı Oluştur"),
                 const SizedBox(height: 30),
                 Text.rich(TextSpan(children:
                 [

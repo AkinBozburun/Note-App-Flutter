@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_notes_app/service/providers.dart';
+import 'package:provider/provider.dart';
 
 class AuthDialog extends StatelessWidget
 {
@@ -7,11 +9,36 @@ class AuthDialog extends StatelessWidget
 
   final user;
 
+  Widget avatar()=>
+  ClipOval
+  (
+    child: user.photoURL != null ? Image.network(user.photoURL) :
+    Container
+    (
+      width: 60,
+      decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.blueGrey),
+      child: Center(child: Text(user.displayName[0].toUpperCase(),
+      style: const TextStyle(color: Colors.white))),
+    ),
+  );
+  //CircleAvatar
+  //(
+  //  radius: 30,
+  //  backgroundColor: Colors.blueGrey,
+  //  backgroundImage: user.photoURL != null ? NetworkImage(user.photoURL) : null,
+  //  child: Text(user.photoURL == null ? user.displayName[0].toUpperCase() : ""),
+  //);
+
   @override
   Widget build(BuildContext context)
   {
     return GestureDetector
     (
+      child: Padding
+      (
+        padding: const EdgeInsets.symmetric(vertical: 18),
+        child: avatar(),
+      ),
       onTap: () => showDialog
       (
         context: context,
@@ -31,19 +58,17 @@ class AuthDialog extends StatelessWidget
                 [
                   ListTile
                   (
-                    leading: const CircleAvatar
-                    (
-                      radius: 30,
-                      backgroundColor: Colors.blueGrey,
-                      child: Text("A"),
-                    ),
+                    leading: avatar(),
                     title: Text(user.displayName ?? "Kullanıcı"),
                     subtitle: Text(user.email),
                   ),
                   Container(height: 0.5,color: const Color(0xFF383838)),
                   ElevatedButton(onPressed:()
                   {
+                    final prov = Provider.of<GoogleLogInProvider>(context,listen: false);
+
                     Navigator.pop(context);
+                    prov.googleLogOut();
                     FirebaseAuth.instance.signOut();
                   },
                   child: const Text("Çıkış yap"))
@@ -53,12 +78,7 @@ class AuthDialog extends StatelessWidget
           ),
         )
       ),
-      child: const CircleAvatar
-      (
-        radius: 24,
-        backgroundColor: Colors.blueGrey,
-        child: Text("A"),
-      ),
+
     );
   }
 }

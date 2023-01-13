@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_notes_app/service/provider.dart';
+import 'package:my_notes_app/service/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list_build.dart';
 import 'package:provider/provider.dart';
@@ -100,19 +100,76 @@ Widget colorsBar(doc,id)
       )
     );
   }
-  return Container //Color list
-  (
-    color: Colors.black12,
-    height: 85,
-    child: Column
+  else
+  {
+    return Container //Color list
     (
-      mainAxisAlignment: MainAxisAlignment.center,
-      children:
-      [
-        Text("Düzenlenme tarihi: ${doc?["note_date"]}",style: AppStyle.dateStyle),
-        const SizedBox(height: 10),
-        ColorListWidget(id: id!),
-      ],
-    ),
-  );
+      color: Colors.black12,
+      height: 85,
+      child: Column
+      (
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:
+        [
+          Text("Düzenlenme tarihi: ${doc?["note_date"]}",style: AppStyle.dateStyle),
+          const SizedBox(height: 10),
+          ColorListWidget(id: id!),
+        ],
+      ),
+    );
+  }
 }
+
+Widget registerButton(Function() login,txt) => InkWell //Log In Button
+(
+  onTap: login,
+  child: Ink
+  (
+    height: 50,
+    decoration: BoxDecoration
+    (
+      color: Colors.grey.shade600,
+      borderRadius: BorderRadius.circular(10)
+    ),
+    child: Center(child: Text(txt,
+    style: const TextStyle(color: Colors.white,fontSize: 16),)),
+  ),
+);
+
+Widget snackBar(txt) => SnackBar(content: Text(txt));
+
+Widget orSeparate() => Row
+(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children:
+  [
+    Container(height: 0.4,width: 120,color: Colors.black),
+    const Text("Ya da"),
+    Container(height: 0.4,width: 120,color: Colors.black)
+  ]
+);
+
+Widget googleLogIn(context) => InkWell
+(
+  onTap: ()
+  {
+    final prov = Provider.of<GoogleLogInProvider>(context,listen: false);
+    prov.googleLogIn();
+  },
+  child: Ink
+  (
+    height: 50,
+    decoration: BoxDecoration
+    (
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10)
+    ),
+    child: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
+    children:
+    [
+      Image.asset("images/google.png"),
+      const Text("Google ile devam et",
+      style: TextStyle(color: Colors.black,fontSize: 16)),
+    ])),
+  ),
+);

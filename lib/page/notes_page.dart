@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/page/note_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/auth_dialog.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
-class MainPage extends StatefulWidget
+class NotesPage extends StatefulWidget
 {
-  const MainPage({super.key});
+  const NotesPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<NotesPage> createState() => _NotesPageState();
 }
 
-class _MainPageState extends State<MainPage>
+class _NotesPageState extends State<NotesPage>
 {
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -26,7 +25,7 @@ class _MainPageState extends State<MainPage>
     super.initState();
   }
 
-  //final userID =
+  String isim = "Akın Bozburun";
 
   @override
   Widget build(BuildContext context) => Scaffold
@@ -40,7 +39,9 @@ class _MainPageState extends State<MainPage>
         children:
         [
           Text("Selam",style: AppStyle.hiStyle),
-          Text(" ${user.displayName ?? "Kullanici"}",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22)),
+          Text(user.displayName ?? "Kullanici",
+            style: const TextStyle(color: Colors.black,
+              fontWeight: FontWeight.w500,fontSize: 22)),
         ],
       ),
       backgroundColor: Colors.transparent,

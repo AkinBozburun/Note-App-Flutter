@@ -5,8 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:my_notes_app/page/auth_page.dart';
 import 'package:my_notes_app/page/no_internet_page.dart';
-import 'package:my_notes_app/service/provider.dart';
-import 'package:my_notes_app/service/utils.dart';
+import 'package:my_notes_app/service/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +35,11 @@ class MyApp extends StatelessWidget
   @override
   Widget build(BuildContext context) => MultiProvider
   (
-    providers: [ChangeNotifierProvider(create: (context) => NoteProvider())],
+    providers:
+    [
+      ChangeNotifierProvider(create: (context) => NoteProvider()),
+      ChangeNotifierProvider(create: (context) => GoogleLogInProvider())
+    ],
     child: MaterialApp
     (
       scaffoldMessengerKey: messengerKey,
