@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/page/note_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
-import 'package:my_notes_app/widgets/auth_dialog.dart';
+import 'package:my_notes_app/widgets/log_out_dialog.dart';
+import 'package:my_notes_app/widgets/user_dialog.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotesPage extends StatefulWidget
@@ -21,11 +22,9 @@ class _NotesPageState extends State<NotesPage>
   @override
   void initState()
   {
-    //FirebaseFirestore.instance.collection("user1").add({});
+    FirebaseFirestore.instance.collection("user1").add({});
     super.initState();
   }
-
-  String isim = "Akın Bozburun";
 
   @override
   Widget build(BuildContext context) => Scaffold
@@ -38,21 +37,23 @@ class _NotesPageState extends State<NotesPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children:
         [
-          Text("Selam",style: AppStyle.hiStyle),
-          Text(user.displayName ?? "Kullanici",
-            style: const TextStyle(color: Colors.black,
-              fontWeight: FontWeight.w500,fontSize: 22)),
+          Text("Hoşgeldin!",style: AppStyle.hiStyle),
+          Text(user.displayName ?? "Kullanici", style: AppStyle.userNameStyle),
         ],
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppStyle.backgroundColor,
       elevation: 0,
-      toolbarHeight: 100,
-      leading: Padding
+      toolbarHeight: 90,
+      leading: Stack
       (
-        padding: const EdgeInsets.only(left: 10),
-        child: AuthDialog(user: user),
+        alignment: Alignment.center,
+        children:
+        [
+          userAvatar(user),
+        ],
       ),
       leadingWidth: 70,
+      actions: const [LogOutIcon()],
     ),
     body: StreamBuilder<QuerySnapshot>
     (
@@ -67,7 +68,7 @@ class _NotesPageState extends State<NotesPage>
         {
           return GridView
           (
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.all(10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount
             (
               crossAxisCount: 2,

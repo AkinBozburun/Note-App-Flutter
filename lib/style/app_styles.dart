@@ -13,6 +13,7 @@ class AppStyle
   static TextStyle singUpTxt = const TextStyle(color: Colors.blue,decoration: TextDecoration.underline);
 
   static TextStyle hiStyle = TextStyle(color: Colors.grey.shade600,fontSize: 16);
+  static TextStyle userNameStyle = const TextStyle(color: Colors.black,fontSize: 20);
 
   static Color noteColor = Colors.yellow.shade200;
   static const Color backgroundColor =  Colors.white;
