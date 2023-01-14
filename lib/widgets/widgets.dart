@@ -22,7 +22,7 @@ Widget userAvatar(user)=> Padding
     (
       width: 60,
       decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.blueGrey),
-      child: Center(child: Text(user.displayName != null ?  user.displayName[0].toUpperCase(): "K",
+      child: Center(child: Text(user.displayName != null ?  user.displayName[0].toUpperCase() : "K",
       style: const TextStyle(color: Colors.white))),
     ),
   ),

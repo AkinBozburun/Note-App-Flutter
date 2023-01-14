@@ -40,22 +40,18 @@ class _RegisterPageState extends State<RegisterPage>
 
    try
     {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword
+      final res = await FirebaseAuth.instance.createUserWithEmailAndPassword
       (
         email: _mailController.text.trim(),
         password: _passwordController.text.trim()
-      )
-      .then((value)
-      {
-        value.user!.updateDisplayName(_nameController.text.trim());
-        print(value.user!.uid);
-      });
+      );
+      User? user = res.user;
+      await user!.updateDisplayName(_nameController.text.trim());
     }
     on FirebaseAuthException catch (e)
     {
       Utils.showSnackBar(e.message);
     }
-    Future.delayed(const Duration(seconds: 1));
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 

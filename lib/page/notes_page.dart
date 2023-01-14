@@ -16,50 +16,50 @@ class NotesPage extends StatefulWidget
 
 class _NotesPageState extends State<NotesPage>
 {
-  User? user = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
-  Widget build(BuildContext context) =>
-  Scaffold
-  (
-    appBar: AppBar
-    (
-      systemOverlayStyle: tranparentStatusBar(),
-      title:Column
-      (
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children:
-        [
-          Text("Hoşgeldin!",style: AppStyle.hiStyle),
-          Text(user?.displayName ?? "kullanıcı", style: AppStyle.userNameStyle),
-        ],
-      ),
-      backgroundColor: AppStyle.backgroundColor,
-      elevation: 0,
-      toolbarHeight: 90,
-      leading: Stack
-      (
-        alignment: Alignment.center,
-        children:
-        [
-          userAvatar(user),
-        ],
-      ),
-      leadingWidth: 70,
-      actions: const [LogOutIcon()],
-    ),
-    body: StreamBuilder<QuerySnapshot>
+  Widget build(BuildContext context)
+  {
+    return StreamBuilder<QuerySnapshot>
     (
       stream: FirebaseFirestore.instance.collection(user!.uid).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot)
       {
         if(snapshot.connectionState == ConnectionState.waiting)
         {
-          return const Center(child: CircularProgressIndicator());
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
         }
-        else if(snapshot.data!.docs.isNotEmpty)
-        {
-          return GridView
+        return Scaffold
+        (
+          appBar: AppBar
+          (
+            systemOverlayStyle: tranparentStatusBar(),
+            title: Column
+            (
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:
+              [
+                Text("Hoşgeldin!",style: AppStyle.hiStyle),
+                Text(user!.displayName ?? "kullanıcı", style: AppStyle.userNameStyle),
+              ],
+            ),
+            backgroundColor: AppStyle.backgroundColor,
+            elevation: 0,
+            toolbarHeight: 90,
+            leading: Stack
+            (
+              alignment: Alignment.center,
+              children:
+              [
+                userAvatar(user),
+              ],
+            ),
+            leadingWidth: 70,
+            actions: const [LogOutIcon()],
+          ),
+          body: snapshot.data!.docs.isNotEmpty ?
+          GridView
           (
             padding: const EdgeInsets.all(10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount
@@ -73,17 +73,13 @@ class _NotesPageState extends State<NotesPage>
               (() => Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: note,userID: user!.uid)))),
               note
             )).toList(),
-          );
-        }
-        else
-        {
-          return const Center(child: Text("Not yok"));
-        }
-      },
-    ),
-    floatingActionButton: addNoteButton
-    (
-      ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: null,userID: user!.uid))),
-    ),
-  );
+          ) : const Center(child: Text("Not yok")),
+          floatingActionButton: addNoteButton
+          (
+            ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: null,userID: user!.uid))),
+          ),
+        );
+      }
+    );
+  }
 }
