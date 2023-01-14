@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../service/providers.dart';
 
-class LogOutIcon extends StatelessWidget {
+class LogOutIcon extends StatelessWidget
+{
   const LogOutIcon({super.key});
 
   @override
