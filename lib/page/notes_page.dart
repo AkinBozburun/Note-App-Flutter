@@ -47,7 +47,12 @@ class _NotesPageState extends State<NotesPage>
       backgroundColor: Colors.transparent,
       elevation: 0,
       toolbarHeight: 100,
-      leading: AuthDialog(user: user),
+      leading: Padding
+      (
+        padding: const EdgeInsets.only(left: 10),
+        child: AuthDialog(user: user),
+      ),
+      leadingWidth: 70,
     ),
     body: StreamBuilder<QuerySnapshot>
     (

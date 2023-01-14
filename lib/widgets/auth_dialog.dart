@@ -27,7 +27,11 @@ class AuthDialog extends StatelessWidget
   {
     return GestureDetector
     (
-      child: avatar(),
+      child: Padding
+      (
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: avatar(),
+      ),
       onTap: () => showDialog
       (
         context: context,
