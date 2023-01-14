@@ -12,7 +12,7 @@ class AuthDialog extends StatelessWidget
   Widget avatar()=>
   ClipOval
   (
-    child: user.photoURL != null ? Image.network(user.photoURL) :
+    child: user.photoURL != null ? Image.network(user.photoURL,fit: BoxFit.fill) :
     Container
     (
       width: 60,
@@ -21,24 +21,13 @@ class AuthDialog extends StatelessWidget
       style: const TextStyle(color: Colors.white))),
     ),
   );
-  //CircleAvatar
-  //(
-  //  radius: 30,
-  //  backgroundColor: Colors.blueGrey,
-  //  backgroundImage: user.photoURL != null ? NetworkImage(user.photoURL) : null,
-  //  child: Text(user.photoURL == null ? user.displayName[0].toUpperCase() : ""),
-  //);
 
   @override
   Widget build(BuildContext context)
   {
     return GestureDetector
     (
-      child: Padding
-      (
-        padding: const EdgeInsets.symmetric(vertical: 18),
-        child: avatar(),
-      ),
+      child: avatar(),
       onTap: () => showDialog
       (
         context: context,

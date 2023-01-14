@@ -33,7 +33,7 @@ class _NotesPageState extends State<NotesPage>
     appBar: AppBar
     (
       systemOverlayStyle: tranparentStatusBar(),
-      title: Column
+      title:Column
       (
         crossAxisAlignment: CrossAxisAlignment.start,
         children:
@@ -47,7 +47,7 @@ class _NotesPageState extends State<NotesPage>
       backgroundColor: Colors.transparent,
       elevation: 0,
       toolbarHeight: 100,
-      actions: [Padding(padding: const EdgeInsets.only(right: 20),child: AuthDialog(user: user))],
+      leading: AuthDialog(user: user),
     ),
     body: StreamBuilder<QuerySnapshot>
     (
