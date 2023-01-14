@@ -4,9 +4,10 @@ import 'package:my_notes_app/style/app_styles.dart';
 
 class ColorListWidget extends StatefulWidget
 {
-  const ColorListWidget({super.key, required this.id});
+  const ColorListWidget({super.key, required this.id, required this.userID});
 
   final String id;
+  final String userID;
 
   @override
   State<ColorListWidget> createState() => _ColorListWidgetState();
@@ -26,7 +27,7 @@ class _ColorListWidgetState extends State<ColorListWidget>
       (
         onTap: ()
         {
-          final docNote = FirebaseFirestore.instance.collection("notes").doc(widget.id);
+          final docNote = FirebaseFirestore.instance.collection(widget.userID).doc(widget.id);
           docNote.update(
           {
              "note_color": index

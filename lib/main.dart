@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:my_notes_app/page/auth_page.dart';
+import 'package:my_notes_app/page/user_form_page.dart';
 import 'package:my_notes_app/page/no_internet_page.dart';
 import 'package:my_notes_app/service/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';

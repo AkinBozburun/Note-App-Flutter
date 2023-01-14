@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/page/login_page.dart';
-import 'package:my_notes_app/page/register_page.dart';
+import 'package:my_notes_app/page/notes_page.dart';
+import 'package:my_notes_app/page/user_form_page.dart';
+import 'package:my_notes_app/widgets/widgets.dart';
 
 class AuthPage extends StatefulWidget
 {
@@ -12,15 +14,27 @@ class AuthPage extends StatefulWidget
 
 class _AuthPageState extends State<AuthPage>
 {
-  bool isLogin = true;
-
   @override
-  Widget build(BuildContext context) => isLogin ?
-  LoginPage(onClickedRegister: toggle) :
-  RegisterPage(onClickedLogIn: toggle);
-
-  toggle()
+  Widget build(BuildContext context)
   {
-    setState((){isLogin = !isLogin;});
+    return StreamBuilder<User?>
+    (
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot)
+      {
+        if(snapshot.hasData)
+        {
+          return const NotesPage();
+        }
+        else if(snapshot.hasError)
+        {
+          return snackBar("Bir sorun oluştu!");
+        }
+        else
+        {
+          return const UserFormPage();
+        }
+      }
+    );
   }
 }

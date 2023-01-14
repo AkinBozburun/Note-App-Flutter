@@ -19,7 +19,6 @@ class RegisterPage extends StatefulWidget
 
 class _RegisterPageState extends State<RegisterPage>
 {
-
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -38,18 +37,25 @@ class _RegisterPageState extends State<RegisterPage>
       barrierDismissible: false,
       builder: (context) => const Center(child: CircularProgressIndicator())
     );
+
    try
     {
       await FirebaseAuth.instance.createUserWithEmailAndPassword
       (
         email: _mailController.text.trim(),
         password: _passwordController.text.trim()
-      ).then((value) => value.user!.updateDisplayName(_nameController.text.trim()));
+      )
+      .then((value)
+      {
+        value.user!.updateDisplayName(_nameController.text.trim());
+        print(value.user!.uid);
+      });
     }
     on FirebaseAuthException catch (e)
     {
       Utils.showSnackBar(e.message);
     }
+    Future.delayed(const Duration(seconds: 1));
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 

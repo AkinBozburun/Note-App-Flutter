@@ -9,9 +9,10 @@ import 'package:provider/provider.dart';
 
 class NotePage extends StatefulWidget
 {
-  const NotePage({super.key, required this.doc});
+  const NotePage({super.key, required this.doc, required this.userID});
 
   final QueryDocumentSnapshot? doc;
+  final String userID;
 
   @override
   State<NotePage> createState() => _NotePageState();
@@ -31,7 +32,7 @@ class _NotePageState extends State<NotePage>
   {
     Provider.of<NoteProvider>(context,listen: false).initializeColor();
     noteID = widget.doc?.id ?? "note${Random().nextInt(1000)}";
-    fireStore = FirebaseFirestore.instance.collection("notes").doc(noteID);
+    fireStore = FirebaseFirestore.instance.collection(widget.userID).doc(noteID);
     _initiliazeNote();
     _titleController.text = widget.doc?["note_title"] ?? "";
     _noteController.text = widget.doc?["note"] ?? "";
@@ -146,7 +147,7 @@ class _NotePageState extends State<NotePage>
               ),
             ),
           ),
-          colorsBar(widget.doc, noteID)
+          colorsBar(widget.doc, noteID, widget.userID)
         ],
       )
     );

@@ -16,25 +16,15 @@ Widget userAvatar(user)=> Padding
 (
   padding: const EdgeInsets.symmetric(vertical: 20),
   child:   ClipOval
-
   (
-
     child: user.photoURL != null ? Image.network(user.photoURL,fit: BoxFit.fitHeight) :
-
     Container
-
     (
-
       width: 60,
-
       decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.blueGrey),
-
-      child: Center(child: Text(user.displayName[0].toUpperCase(),
-
+      child: Center(child: Text(user.displayName != null ?  user.displayName[0].toUpperCase(): "K",
       style: const TextStyle(color: Colors.white))),
-
     ),
-
   ),
 );
 
@@ -114,7 +104,7 @@ Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
   },
 );
 
-Widget colorsBar(doc,id)
+Widget colorsBar(doc,id,userId)
 {
   if(doc?["note_date"] == null)
   {
@@ -122,7 +112,7 @@ Widget colorsBar(doc,id)
     (
       height: 50,
       color: Colors.black12,
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,children:[ColorListWidget(id: id)],
+      child: Column(mainAxisAlignment: MainAxisAlignment.center,children:[ColorListWidget(id: id,userID: userId,)],
       )
     );
   }
@@ -139,7 +129,7 @@ Widget colorsBar(doc,id)
         [
           Text("Düzenlenme tarihi: ${doc?["note_date"]}",style: AppStyle.dateStyle),
           const SizedBox(height: 10),
-          ColorListWidget(id: id!),
+          ColorListWidget(id: id!, userID: userId),
         ],
       ),
     );
