@@ -1,0 +1,109 @@
+{
+  "noInternetLbl" : "No Internet Connection!",
+  "@noInternetLbl" :
+  {
+    "description" : "No Internet Label"
+  },
+
+  "tryAgainBtn" : "Try Again",
+  "@tryAgainBtn" :
+  {
+    "description" : "Try Again Button"
+  },
+
+  "logIn" : "Log In",
+  "@logIn" :
+  {
+    "description" : "Log In Title and Button and text button"
+  },
+
+  "nameHint" : "Name",
+  "@nameHint" : { "description" : "Your name hint" },
+
+  "validateName" : "Name must be valid!",
+  "@nameHint" : { "description" : "validating name" },
+
+  "mailHint" : "E-mail",
+  "@mailHint" :
+  {
+    "description" : "email hint"
+  },
+
+  "validateMail" : "E-mail must be valid!",
+  "@nameHint" : { "description" : "validating mail" },
+
+  "passwordHint" : "Password (Min. 6 characters)",
+  "@passwordHint" :
+  {
+    "description" : "Password hint"
+  },
+
+  "validatePass" : "Password must be Min. 6 characters!",
+  "@nameHint" : { "description" : "validating password" },
+
+  "confirmPass" : "Confirm Password",
+  "@confirmPass" :
+  {
+    "description" : "Confirm Password hint"
+  },
+
+  "validateConfirmPass" : "Not the same Password!",
+  "@nameHint" : { "description" : "validating confirming password" },
+
+  "passwordShow" : "Show",
+  "@passwordShow" : { "description" : "show the password" },
+
+  "passwordHide" : "Hide",
+  "@passwordHide" : { "description" : "hide the password" },
+
+  "orSeparate" : "OR",
+  "@orSeparate" : { "description" : "or separating" },
+
+  "signInWithGoogle" : "Continue with Google",
+  "@signInWithGoogle" :
+  {
+    "description" : "The button for Google SignIn"
+  },
+
+  "noAccount" : "No Account? ",
+  "@noAccount" : { "description" : "No account text" },
+
+  "createAccount" : "Create an Account",
+  "@createAccount" :
+  {
+    "description" : "create account switch text button and Title"
+  },
+
+  "alreadyAccount" : "You have already an account? ",
+  "@alreadyAccount" :
+  {
+    "description" : "already having an account text"
+  },
+
+  "welcome" : "Welcome!",
+  "@welcome" : { "description" : "welcoming text" },
+
+  "newNote" : "New Note",
+  "@newNote" : { "description" : "new Note FAB" },
+
+  "logOut" : "Log Out",
+  "@logOut" : { "description" : "logOut alert dialog" },
+
+  "logOutAlert" : "Are you sure you want to log out?",
+  "@logOutAlert" : { "description" : "log out alert text" },
+
+  "noBtn" : "Nope",
+  "@noBtn" : { "description" : "No button in alert dialog" },
+
+  "yesBtn" : "Yes",
+  "@yesBtn" : { "description" : "Yes button in alert dialog" },
+
+  "noteTitle" : "Title",
+  "@noteTitle" : { "description" : "note title hint" },
+
+  "note" : "Note",
+  "@note" : { "description" : "note hint" },
+
+  "lastEdit" : "Last Edited Date: ",
+  "@lastEdit" :  { "description" : "Last Edited Date" }
+}

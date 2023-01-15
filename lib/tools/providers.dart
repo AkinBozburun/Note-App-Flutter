@@ -39,7 +39,6 @@ class NoteProvider extends ChangeNotifier
   {
     passwordSecure = !passwordSecure;
     notifyListeners();
-    print(passwordSecure);
   }
 }
 

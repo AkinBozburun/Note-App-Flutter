@@ -6,6 +6,7 @@ import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/log_out_dialog.dart';
 import 'package:my_notes_app/widgets/no_notes_alert.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotesPage extends StatefulWidget
 {
@@ -22,6 +23,8 @@ class _NotesPageState extends State<NotesPage>
   @override
   Widget build(BuildContext context)
   {
+    final localText = AppLocalizations.of(context)!;
+
     return StreamBuilder<QuerySnapshot>
     (
       stream: FirebaseFirestore.instance.collection(user!.uid).snapshots(),
@@ -41,7 +44,7 @@ class _NotesPageState extends State<NotesPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children:
               [
-                Text("Hoşgeldin!",style: AppStyle.hiStyle),
+                Text(localText.welcome,style: AppStyle.hiStyle),
                 Text(user!.displayName ?? user!.email.toString(), style: AppStyle.userNameStyle),
               ],
             ),
@@ -80,6 +83,7 @@ class _NotesPageState extends State<NotesPage>
           (
             ()=> Navigator.push(context, MaterialPageRoute(builder: (context) =>
             NotePage(doc: null,userID: user!.uid))),
+            localText.newNote
           ),
         );
       }

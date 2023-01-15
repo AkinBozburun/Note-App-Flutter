@@ -6,6 +6,7 @@ import 'package:my_notes_app/tools/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list_build.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 SystemUiOverlayStyle tranparentStatusBar() => const SystemUiOverlayStyle
 (
@@ -48,11 +49,11 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
   ),
 );
 
-Widget addNoteButton(Function() navigator) => FloatingActionButton.extended
+Widget addNoteButton(Function() navigator,txt) => FloatingActionButton.extended
 (
   backgroundColor: AppStyle.orangeColor,
   onPressed: navigator,
-  label: const Text("Yeni Not"),
+  label: Text(txt),
   icon: const Icon(Icons.add),
 );
 
@@ -108,7 +109,7 @@ Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
   },
 );
 
-Widget colorsBar(doc,id,userId)
+Widget colorsBar(doc,id,userId,txt)
 {
   if(doc?["note_date"] == null)
   {
@@ -131,7 +132,7 @@ Widget colorsBar(doc,id,userId)
         mainAxisAlignment: MainAxisAlignment.center,
         children:
         [
-          Text("Düzenlenme tarihi: ${doc?["note_date"]}",style: AppStyle.dateStyle),
+          Text("$txt ${doc?["note_date"]}",style: AppStyle.dateStyle),
           const SizedBox(height: 10),
           ColorListWidget(id: id!, userID: userId),
         ],
@@ -140,40 +141,47 @@ Widget colorsBar(doc,id,userId)
   }
 }
 
-Widget mailTxtField(mailController) => TextFormField
-(
-  controller: mailController,
-  validator: (email) => email != null && !EmailValidator.validate(email)
-  ? "Geçerli olan bir e-posta adresi girin" : null,
-  decoration:  InputDecoration
+Widget mailTxtField(mailController,context)
+{
+  final localText = AppLocalizations.of(context)!;
+
+  return TextFormField
   (
-    hintText: "Email Adresi",
-    prefixIcon: const Icon(Icons.email),
-    filled: true,
-    fillColor: Colors.white,
-    enabledBorder: AppStyle.txtFieldBorder,
-    focusedBorder: AppStyle.txtFieldBorder,
-    errorBorder : AppStyle.txtFieldBorder,
-  ),
-);
+    controller: mailController,
+    validator: (email) => email != null && !EmailValidator.validate(email)
+    ? localText.validateMail : null,
+    decoration:  InputDecoration
+    (
+      hintText: localText.mailHint,
+      prefixIcon: const Icon(Icons.email),
+      filled: true,
+      fillColor: Colors.white,
+      enabledBorder: AppStyle.txtFieldBorder,
+      focusedBorder: AppStyle.txtFieldBorder,
+      errorBorder : AppStyle.txtFieldBorder,
+    ),
+  );
+}
 
 Widget passwordTxtField(passwordController,con)
 {
+  final localText = AppLocalizations.of(con)!;
   final provider = Provider.of<NoteProvider>(con);
+
   return TextFormField
   (
     controller: passwordController,
     obscureText: provider.passwordSecure,
     validator: (value) => value != null && value.length < 6
-    ? "Parola en az 6 karakter olmalı!" : null,
+    ? localText.validatePass : null,
     decoration: InputDecoration
     (
-      hintText: "Parola (En az 6 karakter)",
+      hintText: localText.passwordHint,
       prefixIcon: const Icon(Icons.key),
       suffixIcon: TextButton
       (
         onPressed: () => provider.setPasswordVisible(),
-        child: Text(provider.passwordSecure ? "Göster" : "Gizle"),
+        child: Text(provider.passwordSecure ? localText.passwordShow : localText.passwordHide),
       ),
       filled: true,
       fillColor: Colors.white,
@@ -202,38 +210,40 @@ Widget registerButton(Function() login,txt) => InkWell //Log In Button
 
 Widget snackBar(txt) => SnackBar(content: Text(txt));
 
-Widget orSeparate() => Row
+Widget orSeparate(txt) => Row
 (
   mainAxisAlignment: MainAxisAlignment.spaceAround,
   children:
   [
     Container(height: 0.4,width: 120,color: Colors.black),
-    const Text("Ya da"),
+    Text(txt),
     Container(height: 0.4,width: 120,color: Colors.black)
   ]
 );
 
-Widget googleLogIn(context) => InkWell
-(
-  onTap: ()
-  {
-    final prov = Provider.of<GoogleLogInProvider>(context,listen: false);
-    prov.googleLogIn();
-  },
-  child: Ink
+Widget googleLogIn(context)
+{
+  final localText = AppLocalizations.of(context)!;
+  final prov = Provider.of<GoogleLogInProvider>(context,listen: false);
+
+  return InkWell
   (
-    height: 50,
-    decoration: BoxDecoration
+    onTap: ()=> prov.googleLogIn(),
+    child: Ink
     (
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10)
+      height: 50,
+      decoration: BoxDecoration
+      (
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10)
+      ),
+      child: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
+      children:
+      [
+        Image.asset("images/google.png"),
+        Text(localText.signInWithGoogle,
+        style: const TextStyle(color: Colors.black,fontSize: 16)),
+      ])),
     ),
-    child: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
-    children:
-    [
-      Image.asset("images/google.png"),
-      const Text("Google ile devam et",
-      style: TextStyle(color: Colors.black,fontSize: 16)),
-    ])),
-  ),
-);
+  );
+}

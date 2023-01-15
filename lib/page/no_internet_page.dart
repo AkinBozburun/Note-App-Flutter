@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoInternetPage extends StatelessWidget
 {
@@ -19,27 +20,32 @@ class NoInternetPage extends StatelessWidget
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold
-  (
-    body: Center
+  Widget build(BuildContext context)
+  {
+    final localText = AppLocalizations.of(context)!;
+
+    return Scaffold
     (
-      child: Column
+      body: Center
       (
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:
-        [
-          SizedBox
-          (
-            height: 140,
-            width: 140,
-            child: Image.asset("images/no-internet.png")
-          ),
-          const SizedBox(height: 30),
-          const Text("İnternet bağlantınız yok!"),
-          const SizedBox(height: 30),
-          ElevatedButton(onPressed: (){_netCheck(context);}, child: const Text("Tekrar Dene"))
-        ],
+        child: Column
+        (
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:
+          [
+            SizedBox
+            (
+              height: 140,
+              width: 140,
+              child: Image.asset("images/no-internet.png")
+            ),
+            const SizedBox(height: 30),
+            Text(localText.noInternetLbl),
+            const SizedBox(height: 30),
+            ElevatedButton(onPressed: (){_netCheck(context);}, child: Text(localText.tryAgainBtn))
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

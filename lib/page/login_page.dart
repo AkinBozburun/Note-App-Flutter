@@ -5,6 +5,7 @@ import 'package:my_notes_app/main.dart';
 import 'package:my_notes_app/tools/utils.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget
 {
@@ -18,6 +19,7 @@ class LoginPage extends StatefulWidget
 
 class _LoginPageState extends State<LoginPage>
 {
+
   final TextEditingController _mailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -57,6 +59,8 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context)
   {
+    final localText = AppLocalizations.of(context)!;
+
     return Scaffold
     (
       appBar: AppBar
@@ -64,7 +68,7 @@ class _LoginPageState extends State<LoginPage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: tranparentStatusBar(),
-        title: Text("Giriş Yap",style: AppStyle.loginTitleStyle),
+        title: Text(localText.logIn,style: AppStyle.loginTitleStyle),
         centerTitle: true,
         toolbarHeight: 120,
       ),
@@ -77,22 +81,22 @@ class _LoginPageState extends State<LoginPage>
           (
             children:
             [
-              mailTxtField(_mailController),
+              mailTxtField(_mailController,context),
               const SizedBox(height: 15),
               passwordTxtField(_passwordController,context),
               const SizedBox(height: 30),
-              registerButton(() => _logIn(),"Giriş Yap"),
+              registerButton(() => _logIn(),localText.logIn),
               const SizedBox(height: 30),
-              orSeparate(),
+              orSeparate(localText.orSeparate),
               const SizedBox(height: 20),
               googleLogIn(context),
               const SizedBox(height: 30),
               Text.rich(TextSpan(children:
               [
-                const TextSpan(text: "Hesabın yok mu?  "),
+                TextSpan(text: localText.noAccount),
                 TextSpan
                 (
-                  text: "Hesap oluştur",style: AppStyle.singUpTxt,
+                  text: localText.createAccount,style: AppStyle.singUpTxt,
                   recognizer: TapGestureRecognizer()..onTap = widget.onClickedRegister
                 ),
               ])),

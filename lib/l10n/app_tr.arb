@@ -1,0 +1,42 @@
+{
+    "noInternetLbl" : "İnternet Bağlantınız Yok!",
+    "tryAgainBtn" : "Tekrar Dene",
+
+    "logIn" : "Giriş Yap",
+
+    "nameHint" : "Adın",
+    "validateName" : "Geçerli bir isim girin!",
+
+    "mailHint" : "E-posta Adresi",
+    "validateMail" : "Geçerli bir e-posta adresi girin!",
+
+    "passwordHint" : "Parola (En az 6 karakter)",
+    "validatePass" : "Parola en az 6 karakter olmalı!",
+
+    "confirmPass" : "Parolayı Doğrula",
+    "validateConfirmPass" : "Parola aynı değil",
+
+    "passwordShow" : "Göster",
+    "passwordHide" : "Gizle",
+
+    "orSeparate" : "Ya da",
+    "signInWithGoogle" : "Google ile devam et",
+
+    "noAccount" : "Hesabın yok mu? ",
+    "createAccount" : "Hesap Oluştur",
+
+    "alreadyAccount" : "Zaten bir hesabın mı var? ",
+
+    "welcome" : "Hoşgeldin!",
+    "newNote" : "Yeni Not",
+
+    "logOut" : "Çıkış yap",
+    "logOutAlert" : "Çıkış yapmak istediğinizden emin misiniz?",
+    "noBtn" : "Hayır",
+    "yesBtn" : "Evet",
+
+    "noteTitle" : "Başlık",
+    "note" : "Not",
+    "lastEdit" : "Düzenlenme Tarihi: "
+
+}

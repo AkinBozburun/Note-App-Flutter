@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +5,7 @@ import 'package:my_notes_app/main.dart';
 import 'package:my_notes_app/tools/utils.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatefulWidget
 {
@@ -60,6 +58,8 @@ class _RegisterPageState extends State<RegisterPage>
   @override
   Widget build(BuildContext context)
   {
+    final localText = AppLocalizations.of(context)!;
+
     return Scaffold
     (
       appBar: AppBar
@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: tranparentStatusBar(),
-        title: Text("Hesap Oluştur",style: AppStyle.loginTitleStyle),
+        title: Text(localText.createAccount,style: AppStyle.loginTitleStyle),
         centerTitle: true,
         toolbarHeight: 120,
       ),
@@ -87,10 +87,10 @@ class _RegisterPageState extends State<RegisterPage>
                 (
                   controller: _nameController,
                   validator: (name) => name != null && name.length < 2 ?
-                  "Geçerli bir isim girin!" : null,
+                  localText.validateName : null,
                   decoration: InputDecoration
                   (
-                    hintText: "Adın",
+                    hintText: localText.nameHint,
                     prefixIcon: const Icon(Icons.person),
                     filled: true,
                     fillColor: Colors.white,
@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage>
                   ),
                 ),
                 const SizedBox(height: 15),
-                mailTxtField(_mailController),
+                mailTxtField(_mailController,context),
                 const SizedBox(height: 15),
                 passwordTxtField(_passwordController,context),
                 const SizedBox(height: 15),
@@ -110,10 +110,10 @@ class _RegisterPageState extends State<RegisterPage>
                   obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) => value != null && value != _passwordController.text
-                  ? "Parola aynı değil" : null,
+                  ? localText.validateConfirmPass : null,
                   decoration: InputDecoration
                   (
-                    hintText: "Parolayı doğrula",
+                    hintText: localText.confirmPass,
                     prefixIcon: const Icon(Icons.key),
                     filled: true,
                     fillColor: Colors.white,
@@ -123,14 +123,14 @@ class _RegisterPageState extends State<RegisterPage>
                   ),
                 ),
                 const SizedBox(height: 30),
-                registerButton(() => _register(), "Hesabı Oluştur"),
+                registerButton(() => _register(), localText.createAccount),
                 const SizedBox(height: 30),
                 Text.rich(TextSpan(children:
                 [
-                  const TextSpan(text: "Zaten bir hesabın mı var?  "),
+                  TextSpan(text: localText.alreadyAccount),
                   TextSpan
                   (
-                    text: "Giriş Yap",style: AppStyle.singUpTxt,
+                    text: localText.logIn,style: AppStyle.singUpTxt,
                     recognizer: TapGestureRecognizer()..onTap = widget.onClickedLogIn
                   ),
                 ])),

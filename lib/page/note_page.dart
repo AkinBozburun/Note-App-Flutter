@@ -6,6 +6,7 @@ import 'package:my_notes_app/tools/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotePage extends StatefulWidget
 {
@@ -79,6 +80,8 @@ class _NotePageState extends State<NotePage>
   @override
   Widget build(BuildContext context)
   {
+    final localText = AppLocalizations.of(context)!;
+
     return Scaffold
     (
       extendBodyBehindAppBar: true,
@@ -137,23 +140,23 @@ class _NotePageState extends State<NotePage>
                     controller: _titleController,
                     style: AppStyle.titleStyle,
                     maxLines: 2,
-                    decoration: const InputDecoration
+                    decoration: InputDecoration
                     (
-                      hintText: "Başlık",
+                      hintText: localText.noteTitle,
                       border: InputBorder.none,
                     ),
                   ),
-                  noteText(_noteController)
+                  noteText(_noteController,localText.note)
                 ],
               ),
             ),
           ),
-          colorsBar(widget.doc, noteID, widget.userID)
+          colorsBar(widget.doc, noteID, widget.userID,localText.lastEdit)
         ],
       )
     );
   }
-  Widget noteText(controller)
+  Widget noteText(controller,txt)
   {
     final prov = Provider.of<NoteProvider>(context);
 
@@ -171,9 +174,9 @@ class _NotePageState extends State<NotePage>
         maxLines: null,
         style: AppStyle.noteStyle,
         keyboardType: TextInputType.multiline,
-        decoration: const InputDecoration
+        decoration: InputDecoration
         (
-          hintText: "Not",
+          hintText: txt,
           border: InputBorder.none,
         ),
       ),

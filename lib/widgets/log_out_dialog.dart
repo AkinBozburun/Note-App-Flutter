@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/tools/providers.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LogOutIcon extends StatelessWidget
 {
@@ -10,6 +11,8 @@ class LogOutIcon extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+    final localText = AppLocalizations.of(context)!;
+
     return IconButton
     (
       icon: const Icon(Icons.logout_outlined,color: Colors.black,size: 26),
@@ -18,11 +21,11 @@ class LogOutIcon extends StatelessWidget
         context: context,
         builder: (context) => AlertDialog
         (
-          title: const Text("Çıkış yap"),
-          content: const Text("Çıkış yapmak istediğinizden emin misiniz?"),
+          title: Text(localText.logOut),
+          content: Text(localText.logOutAlert),
           actions:
           [
-            TextButton(onPressed:()=> Navigator.pop(context),child: const Text("Hayır")),
+            TextButton(onPressed:()=> Navigator.pop(context),child: Text(localText.noBtn)),
             TextButton(onPressed:()
             {
               final prov = Provider.of<GoogleLogInProvider>(context,listen: false);
@@ -30,7 +33,7 @@ class LogOutIcon extends StatelessWidget
               prov.googleLogOut();
               FirebaseAuth.instance.signOut();
             },
-            child: const Text("Evet",style: TextStyle(color: Colors.red))),
+            child: Text(localText.yesBtn,style: const TextStyle(color: Colors.red))),
           ],
         ),
       ),
