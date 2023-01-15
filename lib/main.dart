@@ -6,11 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:my_notes_app/page/auth_page.dart';
 import 'package:my_notes_app/page/user_form_page.dart';
 import 'package:my_notes_app/page/no_internet_page.dart';
-import 'package:my_notes_app/service/providers.dart';
+import 'package:my_notes_app/tools/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'service/firebase_options.dart';
+import 'tools/firebase_options.dart';
 void main() async
 {
   initializeDateFormatting();

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/main.dart';
-import 'package:my_notes_app/service/utils.dart';
+import 'package:my_notes_app/tools/utils.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
@@ -77,34 +77,9 @@ class _LoginPageState extends State<LoginPage>
           (
             children:
             [
-              TextField //Mail Text
-              (
-                controller: _mailController,
-                decoration: InputDecoration
-                (
-                  hintText: "Email Adresi",
-                  prefixIcon: const Icon(Icons.email),
-                  filled: true,
-                  fillColor: Colors.white,
-                  enabledBorder: AppStyle.txtFieldBorder,
-                  focusedBorder: AppStyle.txtFieldBorder,
-                ),
-              ),
+              mailTxtField(_mailController),
               const SizedBox(height: 15),
-              TextField //Password Text
-              (
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration
-                (
-                  hintText: "Parola",
-                  prefixIcon: const Icon(Icons.lock),
-                  filled: true,
-                  fillColor: Colors.white,
-                  enabledBorder: AppStyle.txtFieldBorder,
-                  focusedBorder: AppStyle.txtFieldBorder,
-                ),
-              ),
+              passwordTxtField(_passwordController,context),
               const SizedBox(height: 30),
               registerButton(() => _logIn(),"Giriş Yap"),
               const SizedBox(height: 30),

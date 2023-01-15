@@ -21,7 +21,7 @@ class _ColorListWidgetState extends State<ColorListWidget>
     height: 35,
     child: ListView.builder
     (
-      itemCount: AppStyle.colors.length,
+      itemCount: AppStyle.colorsBar.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => GestureDetector
       (
@@ -40,7 +40,7 @@ class _ColorListWidgetState extends State<ColorListWidget>
           width: 50,
           decoration: BoxDecoration
           (
-            color: AppStyle.colors[index],
+            color: AppStyle.colorsBar[index],
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: Colors.black,width: 0.1)
           ),

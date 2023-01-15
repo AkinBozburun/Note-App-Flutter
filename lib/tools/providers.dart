@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:my_notes_app/style/app_styles.dart';
 
 class NoteProvider extends ChangeNotifier
 {
@@ -19,17 +20,26 @@ class NoteProvider extends ChangeNotifier
     {
       if(txt != doc?["note"])
       {
-        undoColor = Colors.black;
+        undoColor = AppStyle.blackColor;
         redoColor = Colors.black12;
         notifyListeners();
       }
       if(txt == doc?["note"])
       {
         undoColor = Colors.black12;
-        redoColor = Colors.black;
+        redoColor = AppStyle.blackColor;
         notifyListeners();
       }
     }
+  }
+
+  bool passwordSecure = true;
+
+  setPasswordVisible()
+  {
+    passwordSecure = !passwordSecure;
+    notifyListeners();
+    print(passwordSecure);
   }
 }
 

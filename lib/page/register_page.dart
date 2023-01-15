@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/main.dart';
-import 'package:my_notes_app/service/utils.dart';
+import 'package:my_notes_app/tools/utils.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
@@ -84,8 +86,8 @@ class _RegisterPageState extends State<RegisterPage>
                 TextFormField //Name Text
                 (
                   controller: _nameController,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (name) => name != null && name.length < 2 ? "Geçerli bir isim girin!" : null,
+                  validator: (name) => name != null && name.length < 2 ?
+                  "Geçerli bir isim girin!" : null,
                   decoration: InputDecoration
                   (
                     hintText: "Adın",
@@ -94,48 +96,19 @@ class _RegisterPageState extends State<RegisterPage>
                     fillColor: Colors.white,
                     enabledBorder: AppStyle.txtFieldBorder,
                     focusedBorder: AppStyle.txtFieldBorder,
+                    errorBorder : AppStyle.txtFieldBorder,
                   ),
                 ),
                 const SizedBox(height: 15),
-                TextFormField //Mail Text
-                (
-                  controller: _mailController,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email) => email != null && !EmailValidator.validate(email)
-                  ? "Geçerli olan bir e-posta adresi girin" : null,
-                  decoration: InputDecoration
-                  (
-                    hintText: "Email Adresi",
-                    prefixIcon: const Icon(Icons.email),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: AppStyle.txtFieldBorder,
-                    focusedBorder: AppStyle.txtFieldBorder,
-                  ),
-                ),
+                mailTxtField(_mailController),
                 const SizedBox(height: 15),
-                TextFormField //Password Text
-                (
-                  controller: _passwordController,
-                  obscureText: true,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) => value != null && value.length < 6
-                  ? "Parola en az 6 karakter olmalı!" : null,
-                  decoration: InputDecoration
-                  (
-                    hintText: "Parola (En az 6 karakter)",
-                    prefixIcon: const Icon(Icons.key),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: AppStyle.txtFieldBorder,
-                    focusedBorder: AppStyle.txtFieldBorder,
-                  ),
-                ),
+                passwordTxtField(_passwordController,context),
                 const SizedBox(height: 15),
                 TextFormField //Password Confirm Text
                 (
                   controller: _passwordConfirmController,
                   obscureText: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) => value != null && value != _passwordController.text
                   ? "Parola aynı değil" : null,
                   decoration: InputDecoration
@@ -146,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage>
                     fillColor: Colors.white,
                     enabledBorder: AppStyle.txtFieldBorder,
                     focusedBorder: AppStyle.txtFieldBorder,
+                    errorBorder : AppStyle.txtFieldBorder,
                   ),
                 ),
                 const SizedBox(height: 30),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_notes_app/service/providers.dart';
+import 'package:my_notes_app/tools/providers.dart';
 import 'package:provider/provider.dart';
 
 class LogOutIcon extends StatelessWidget

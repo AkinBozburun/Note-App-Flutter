@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_notes_app/page/note_page.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/log_out_dialog.dart';
+import 'package:my_notes_app/widgets/no_notes_alert.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 
 class NotesPage extends StatefulWidget
@@ -41,7 +42,7 @@ class _NotesPageState extends State<NotesPage>
               children:
               [
                 Text("Hoşgeldin!",style: AppStyle.hiStyle),
-                Text(user!.displayName ?? "kullanıcı", style: AppStyle.userNameStyle),
+                Text(user!.displayName ?? user!.email.toString(), style: AppStyle.userNameStyle),
               ],
             ),
             backgroundColor: AppStyle.backgroundColor,
@@ -70,13 +71,15 @@ class _NotesPageState extends State<NotesPage>
             ),
             children: snapshot.data!.docs.map((note) => noteCards
             (
-              (() => Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: note,userID: user!.uid)))),
+              (() => Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              NotePage(doc: note,userID: user!.uid)))),
               note
             )).toList(),
-          ) : const Center(child: Text("Not yok")),
+          ) : const NoNotesAlert(),
           floatingActionButton: addNoteButton
           (
-            ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => NotePage(doc: null,userID: user!.uid))),
+            ()=> Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            NotePage(doc: null,userID: user!.uid))),
           ),
         );
       }

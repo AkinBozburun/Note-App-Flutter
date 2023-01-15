@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_notes_app/service/providers.dart';
+import 'package:my_notes_app/tools/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/color_list_build.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
   onTap: tap,
   child: Card
   (
-    color: AppStyle.colors[doc['note_color']],
+    color: AppStyle.colorsBar[doc['note_color']],
     shape: RoundedRectangleBorder
     (
       borderRadius: BorderRadius.circular(10),
@@ -47,21 +48,18 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
   ),
 );
 
-Widget addNoteButton(Function() navigator) => FloatingActionButton
+Widget addNoteButton(Function() navigator) => FloatingActionButton.extended
 (
-  backgroundColor: Colors.blueGrey,
-  shape: RoundedRectangleBorder
-  (
-    borderRadius: BorderRadius.circular(15),
-  ),
+  backgroundColor: AppStyle.orangeColor,
   onPressed: navigator,
-  child: const Icon(Icons.add),
+  label: const Text("Yeni Not"),
+  icon: const Icon(Icons.add),
 );
 
 Widget backButton(Function() press) => IconButton
 (
   onPressed: press,
-  icon: const Icon(Icons.keyboard_arrow_left_outlined,color: Colors.black),
+  icon: const Icon(Icons.keyboard_arrow_left_outlined,color: AppStyle.blackColor),
 );
 
 Widget undoButton(Function() undo,con)
@@ -87,6 +85,12 @@ Widget redoButton(Function() redo,con)
   );
 }
 
+Widget deleteNoteButton(Function() delete) => IconButton
+(
+  onPressed: delete,
+  icon: const Icon(Icons.delete),color: AppStyle.blackColor
+);
+
 Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
 (
   stream: fireStore.snapshots(),
@@ -97,7 +101,7 @@ Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
       return AnimatedContainer
       (
         duration: const Duration(milliseconds: 100),
-        color: AppStyle.colors[snapshot.data?["note_color"]]
+        color: AppStyle.colorsBar[snapshot.data?["note_color"]]
       );
     }
     return const Center();
@@ -134,6 +138,50 @@ Widget colorsBar(doc,id,userId)
       ),
     );
   }
+}
+
+Widget mailTxtField(mailController) => TextFormField
+(
+  controller: mailController,
+  validator: (email) => email != null && !EmailValidator.validate(email)
+  ? "Geçerli olan bir e-posta adresi girin" : null,
+  decoration:  InputDecoration
+  (
+    hintText: "Email Adresi",
+    prefixIcon: const Icon(Icons.email),
+    filled: true,
+    fillColor: Colors.white,
+    enabledBorder: AppStyle.txtFieldBorder,
+    focusedBorder: AppStyle.txtFieldBorder,
+    errorBorder : AppStyle.txtFieldBorder,
+  ),
+);
+
+Widget passwordTxtField(passwordController,con)
+{
+  final provider = Provider.of<NoteProvider>(con);
+  return TextFormField
+  (
+    controller: passwordController,
+    obscureText: provider.passwordSecure,
+    validator: (value) => value != null && value.length < 6
+    ? "Parola en az 6 karakter olmalı!" : null,
+    decoration: InputDecoration
+    (
+      hintText: "Parola (En az 6 karakter)",
+      prefixIcon: const Icon(Icons.key),
+      suffixIcon: TextButton
+      (
+        onPressed: () => provider.setPasswordVisible(),
+        child: Text(provider.passwordSecure ? "Göster" : "Gizle"),
+      ),
+      filled: true,
+      fillColor: Colors.white,
+      enabledBorder: AppStyle.txtFieldBorder,
+      focusedBorder: AppStyle.txtFieldBorder,
+      errorBorder : AppStyle.txtFieldBorder,
+    ),
+  );
 }
 
 Widget registerButton(Function() login,txt) => InkWell //Log In Button

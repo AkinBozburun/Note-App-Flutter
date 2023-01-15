@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_notes_app/service/providers.dart';
+import 'package:my_notes_app/tools/providers.dart';
 import 'package:my_notes_app/style/app_styles.dart';
 import 'package:my_notes_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -111,8 +111,9 @@ class _NotePageState extends State<NotePage>
               }
             }
             Provider.of<NoteProvider>(context,listen: false).undoRedoColorChange(_noteController.text, widget.doc);
-          }, context),
-          IconButton(onPressed: () => _deleteNote(), icon: const Icon(Icons.delete),color: Colors.black),
+          },context),
+          deleteNoteButton(() =>_deleteNote()),
+
         ],
       ),
       body: Stack
