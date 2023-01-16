@@ -2,7 +2,7 @@
     "noInternetLbl" : "İnternet Bağlantınız Yok!",
     "tryAgainBtn" : "Tekrar Dene",
 
-    "logIn" : "Giriş Yap",
+    "logIn" : "Giris Yap",
 
     "nameHint" : "Adın",
     "validateName" : "Geçerli bir isim girin!",
@@ -23,7 +23,7 @@
     "signInWithGoogle" : "Google ile devam et",
 
     "noAccount" : "Hesabın yok mu? ",
-    "createAccount" : "Hesap Oluştur",
+    "createAccount" : "Hesap Olustur",
 
     "alreadyAccount" : "Zaten bir hesabın mı var? ",
 

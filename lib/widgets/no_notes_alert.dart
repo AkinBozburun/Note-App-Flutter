@@ -18,23 +18,27 @@ class _NoNotesAlertState extends State<NoNotesAlert>
     final localText = AppLocalizations.of(context)!;
     return Center
     (
-      child: Column
+      child: SizedBox
       (
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:
-        [
-          SizedBox
-          (
-            height: 150,
-            width: 150,
-            child: Image.asset("images/note.png")
-          ),
-          const SizedBox(height: 20),
-          Text(localText.noNote,style: AppStyle.noNotes1),
-          const SizedBox(height: 10),
-          Text(localText.takeNote,style: AppStyle.noNotes2),
-          const SizedBox(height: 100),
-        ],
+        width: 210,
+        child: Column
+        (
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:
+          [
+            SizedBox
+            (
+              height: 150,
+              width: 150,
+              child: Image.asset("images/note.png")
+            ),
+            const SizedBox(height: 20),
+            Text("${localText.noNote} :(",style: AppStyle.noNotes1),
+            const SizedBox(height: 10),
+            Text(localText.takeNote,style: AppStyle.noNotes2),
+            const SizedBox(height: 100),
+          ],
+        ),
       ),
     );
   }

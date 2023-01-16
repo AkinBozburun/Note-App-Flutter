@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _NotePageState extends State<NotePage>
     super.initState();
   }
 
-  _initiliazeNote()
+  _initiliazeNote() async
   {
     if(widget.doc?.data() == null)
     {
@@ -63,7 +64,7 @@ class _NotePageState extends State<NotePage>
       ({
         "note_title" : _titleController.text,
         "note" : _noteController.text,
-        "note_date" : DateFormat("H:mm - d MMM y","tr").format(DateTime.now())
+        "note_date" : DateFormat("H:mm - d MMM y",Platform.localeName).format(DateTime.now())
       }).then((value)=> Navigator.pop(context));
     }
     else
@@ -151,7 +152,7 @@ class _NotePageState extends State<NotePage>
               ),
             ),
           ),
-          colorsBar(widget.doc, noteID, widget.userID,localText.lastEdit)
+          colorsBar(widget.doc, noteID, widget.userID,localText.lastEdit,fireStore)
         ],
       )
     );

@@ -24,7 +24,8 @@ Widget userAvatar(user)=> Padding
     (
       width: 60,
       decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.blueGrey),
-      child: Center(child: Text(user.displayName != null ?  user.displayName[0].toUpperCase() : "K",
+      child: Center(child: Text(user.displayName != null ?
+      user.displayName[0].toUpperCase() : user.email[0].toUpperCase(),
       style: const TextStyle(color: Colors.white))),
     ),
   ),
@@ -38,19 +39,38 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
     color: AppStyle.colorsBar[doc['note_color']],
     shape: RoundedRectangleBorder
     (
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(8),
     ),
-    child: ListTile
+    child: Container
     (
-      contentPadding: const EdgeInsets.all(12),
-      title: Text(doc["note_title"],style: AppStyle().cardTitle),
-      subtitle: Text(doc["note"],style: AppStyle().cardNote),
+      padding: const EdgeInsets.all(15),
+      child: Column
+      (
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children:
+        [
+          Text
+          (
+            doc["note_title"],style: AppStyle().cardTitle,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          const SizedBox(height: 6),
+          Text
+          (
+            doc["note"],style: AppStyle().cardNote,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 4,
+          ),
+        ],
+      ),
     ),
   ),
 );
 
 Widget addNoteButton(Function() navigator,txt) => FloatingActionButton
 (
+  heroTag: null,
   backgroundColor: AppStyle.blackColor,
   onPressed: navigator,
   elevation: 6,
@@ -109,37 +129,43 @@ Widget noteColor(fireStore) => StreamBuilder<DocumentSnapshot>
   },
 );
 
-Widget colorsBar(doc,id,userId,txt)
-{
-  if(doc?["note_date"] == null)
+Widget colorsBar(doc,id,userId,txt,fireStore)=> StreamBuilder<DocumentSnapshot>
+(
+  stream: fireStore.snapshots(),
+  builder:(context, AsyncSnapshot<DocumentSnapshot> snapshot)
   {
-    return Container
-    (
-      height: 50,
-      color: Colors.black12,
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,children:[ColorListWidget(id: id,userID: userId,)],
-      )
-    );
-  }
-  else
-  {
-    return Container //Color list
-    (
-      color: Colors.black12,
-      height: 85,
-      child: Column
+    if(snapshot.data?.exists ?? snapshot.hasData)
+    {
+      return AnimatedContainer
       (
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:
-        [
-          Text("$txt ${doc?["note_date"]}",style: AppStyle().dateStyle),
-          const SizedBox(height: 10),
-          ColorListWidget(id: id!, userID: userId),
-        ],
-      ),
-    );
-  }
-}
+        duration: const Duration(milliseconds: 100),
+        height: doc?["note_date"] == null ? 60 : 85,
+        decoration: BoxDecoration
+        (
+          color: AppStyle.colorsBar[snapshot.data?["note_color"]],
+          boxShadow: const [ BoxShadow
+          (
+             color: AppStyle.blackColor,
+              spreadRadius: 1,
+              blurRadius: 10,
+              offset: Offset(0, 5),
+          )]
+        ),
+        child: Column
+        (
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: doc?["note_date"] != null ?
+          [
+            Text("$txt ${doc?["note_date"]}",style: AppStyle().dateStyle),
+            const SizedBox(height: 10),
+            ColorListWidget(id: id,userID: userId)
+          ] : [ColorListWidget(id: id,userID: userId)],
+        )
+      );
+    }
+    return const Center();
+  },
+);
 
 Widget mailTxtField(mailController,context)
 {
@@ -185,6 +211,31 @@ Widget passwordTxtField(passwordController,con)
         onPressed: () => provider.setPasswordVisible(),
         child: Text(provider.passwordSecure ? localText.passwordShow : localText.passwordHide,style: AppStyle().secureButtonStyle),
       ),
+      filled: true,
+      fillColor: Colors.white,
+      enabledBorder: AppStyle.txtFieldBorder,
+      focusedBorder: AppStyle.txtFieldBorder,
+      errorBorder : AppStyle.txtFieldBorder,
+    ),
+  );
+}
+
+Widget confirmPassField(passwordController,passwordConfirmController,con)
+{
+  final localText = AppLocalizations.of(con)!;
+  final provider = Provider.of<NoteProvider>(con);
+
+  return TextFormField
+  (
+    controller: passwordConfirmController,
+    obscureText: provider.passwordSecure,
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    validator: (value) => value != null && value != passwordController.text
+    ? localText.validateConfirmPass : null,
+    decoration: InputDecoration
+    (
+      hintText: localText.confirmPass,
+      prefixIcon: const Icon(Icons.key),
       filled: true,
       fillColor: Colors.white,
       enabledBorder: AppStyle.txtFieldBorder,

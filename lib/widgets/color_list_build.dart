@@ -42,7 +42,7 @@ class _ColorListWidgetState extends State<ColorListWidget>
           (
             color: AppStyle.colorsBar[index],
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: Colors.black,width: 0.1)
+            border: Border.all(color: AppStyle.blackColor,width: 0.2)
           ),
         ),
       ),

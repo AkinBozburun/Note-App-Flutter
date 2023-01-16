@@ -104,24 +104,7 @@ class _RegisterPageState extends State<RegisterPage>
                 const SizedBox(height: 15),
                 passwordTxtField(_passwordController,context),
                 const SizedBox(height: 15),
-                TextFormField //Password Confirm Text
-                (
-                  controller: _passwordConfirmController,
-                  obscureText: true,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) => value != null && value != _passwordController.text
-                  ? localText.validateConfirmPass : null,
-                  decoration: InputDecoration
-                  (
-                    hintText: localText.confirmPass,
-                    prefixIcon: const Icon(Icons.key),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: AppStyle.txtFieldBorder,
-                    focusedBorder: AppStyle.txtFieldBorder,
-                    errorBorder : AppStyle.txtFieldBorder,
-                  ),
-                ),
+                confirmPassField(_passwordController, _passwordConfirmController, context),
                 const SizedBox(height: 30),
                 registerButton(() => _register(), localText.createAccount),
                 const SizedBox(height: 30),

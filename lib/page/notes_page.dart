@@ -71,6 +71,7 @@ class _NotesPageState extends State<NotesPage>
               crossAxisCount: 2,
               mainAxisSpacing: 5,
               crossAxisSpacing: 5,
+              childAspectRatio: 9/10
             ),
             children: snapshot.data!.docs.map((note) => noteCards
             (

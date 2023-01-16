@@ -12,9 +12,6 @@ import 'tools/firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async
 {
-  //initializeDateFormatting();
-  //Intl.defaultLocale = "tr_TR";
-
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 

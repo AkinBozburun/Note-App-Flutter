@@ -10,6 +10,7 @@ class AppStyle
   static const _font5 = "Inter";
   static const _font6 = "Montserrat";
 
+
   static OutlineInputBorder txtFieldBorder = const OutlineInputBorder
   (
     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -29,18 +30,18 @@ class AppStyle
   TextStyle noAcountTxt = GoogleFonts.getFont(_font4,color: blackColor);
   TextStyle singUpTxt = GoogleFonts.getFont(_font4,color: Colors.blue,decoration: TextDecoration.underline);
 
-  TextStyle hiStyle = GoogleFonts.getFont(_font4,color: Colors.grey.shade600,fontSize: 16,fontWeight: FontWeight.w500);
-  TextStyle userNameStyle = GoogleFonts.getFont(_font1,color: blackColor,fontSize: 20,fontWeight: FontWeight.w700);
+  TextStyle hiStyle = GoogleFonts.getFont(_font4, color: Colors.grey.shade500,fontSize: 16, fontWeight: FontWeight.w600);
+  TextStyle userNameStyle = GoogleFonts.getFont(_font4, color: blackColor,fontSize: 20, fontWeight: FontWeight.w600);
 
   static TextStyle noNotes1 = GoogleFonts.getFont(_font2,color: blackColor, fontSize: 20,fontWeight: FontWeight.w600);
   static TextStyle noNotes2 = GoogleFonts.getFont(_font3,color: Colors.grey.shade500, fontSize: 14);
 
-  TextStyle cardTitle = GoogleFonts.getFont(_font4,color: blackColor,fontWeight: FontWeight.w600);
-  TextStyle cardNote = GoogleFonts.getFont(_font4,fontWeight: FontWeight.w500);
+  TextStyle cardTitle = GoogleFonts.getFont(_font4, fontSize: 16, color: blackColor,fontWeight: FontWeight.w600);
+  TextStyle cardNote = GoogleFonts.getFont(_font4, fontSize: 14, color: Colors.black54,fontWeight: FontWeight.w500);
 
-  TextStyle titleStyle = const TextStyle(fontSize: 24,fontWeight: FontWeight.w500);
-  TextStyle noteStyle = const TextStyle(fontSize: 18);
-  TextStyle dateStyle = const TextStyle(fontSize: 14,color: blackColor);
+  TextStyle titleStyle = GoogleFonts.getFont(_font4,fontSize: 24,fontWeight: FontWeight.w800);
+  TextStyle noteStyle = GoogleFonts.getFont(_font4,fontSize: 20,fontWeight: FontWeight.w500);
+  TextStyle dateStyle = GoogleFonts.getFont(_font1,fontSize: 14,color: blackColor,fontWeight: FontWeight.w500);
 
   static const Color backgroundColor = Color(0xFFF5F5FA);
   static const Color blueColor = Color(0xFF85B6B1);
