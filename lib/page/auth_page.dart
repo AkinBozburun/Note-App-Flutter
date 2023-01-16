@@ -28,7 +28,7 @@ class _AuthPageState extends State<AuthPage>
         }
         else if(snapshot.hasError)
         {
-          return snackBar("Bir sorun oluştu!");
+          return const SnackBar(content: Text("Bir sorun oluştu!"));
         }
         else
         {

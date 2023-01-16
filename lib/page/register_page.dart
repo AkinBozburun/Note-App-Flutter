@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: tranparentStatusBar(),
-        title: Text(localText.createAccount,style: AppStyle.loginTitleStyle),
+        title: Text(localText.createAccount,style: AppStyle().loginTitleStyle),
         centerTitle: true,
         toolbarHeight: 120,
       ),
@@ -130,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage>
                   TextSpan(text: localText.alreadyAccount),
                   TextSpan
                   (
-                    text: localText.logIn,style: AppStyle.singUpTxt,
+                    text: localText.logIn,style: AppStyle().singUpTxt,
                     recognizer: TapGestureRecognizer()..onTap = widget.onClickedLogIn
                   ),
                 ])),

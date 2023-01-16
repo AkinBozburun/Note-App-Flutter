@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes_app/main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_notes_app/style/app_styles.dart';
 
 class NoInternetPage extends StatelessWidget
 {
@@ -40,9 +41,9 @@ class NoInternetPage extends StatelessWidget
               child: Image.asset("images/no-internet.png")
             ),
             const SizedBox(height: 30),
-            Text(localText.noInternetLbl),
+            Text(localText.noInternetLbl,style: AppStyle().noNet,),
             const SizedBox(height: 30),
-            ElevatedButton(onPressed: (){_netCheck(context);}, child: Text(localText.tryAgainBtn))
+            ElevatedButton(onPressed: () => _netCheck(context), child: Text(localText.tryAgainBtn))
           ],
         ),
       ),

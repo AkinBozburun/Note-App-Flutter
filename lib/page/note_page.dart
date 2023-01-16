@@ -138,7 +138,7 @@ class _NotePageState extends State<NotePage>
                   TextField //Title
                   (
                     controller: _titleController,
-                    style: AppStyle.titleStyle,
+                    style: AppStyle().titleStyle,
                     maxLines: 2,
                     decoration: InputDecoration
                     (
@@ -172,7 +172,7 @@ class _NotePageState extends State<NotePage>
           prov.undoRedoColorChange(value, widget.doc);
         },
         maxLines: null,
-        style: AppStyle.noteStyle,
+        style: AppStyle().noteStyle,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration
         (

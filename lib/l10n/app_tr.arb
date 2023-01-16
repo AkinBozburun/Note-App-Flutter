@@ -27,6 +27,9 @@
 
     "alreadyAccount" : "Zaten bir hesabın mı var? ",
 
+    "noNote" : "Hiç notun yok",
+    "takeNote" : "Burası bomboş görünüyor. Yeni notlar oluştur!",
+
     "welcome" : "Hoşgeldin!",
     "newNote" : "Yeni Not",
 
@@ -38,5 +41,4 @@
     "noteTitle" : "Başlık",
     "note" : "Not",
     "lastEdit" : "Düzenlenme Tarihi: "
-
 }

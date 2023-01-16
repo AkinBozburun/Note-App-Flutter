@@ -44,8 +44,8 @@ class _NotesPageState extends State<NotesPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children:
               [
-                Text(localText.welcome,style: AppStyle.hiStyle),
-                Text(user!.displayName ?? user!.email.toString(), style: AppStyle.userNameStyle),
+                Text(localText.welcome,style: AppStyle().hiStyle),
+                Text(user!.displayName ?? user!.email.toString(), style: AppStyle().userNameStyle),
               ],
             ),
             backgroundColor: AppStyle.backgroundColor,

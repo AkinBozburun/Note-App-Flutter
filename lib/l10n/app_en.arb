@@ -80,10 +80,16 @@
     "description" : "already having an account text"
   },
 
+  "noNote" : "No notes!",
+  "@noNote" : { "description" : "no note text" },
+
+  "takeNote" : "Looks empty here. Create new ones!",
+  "@noNote" : { "description" : "no note text" },
+
   "welcome" : "Welcome!",
   "@welcome" : { "description" : "welcoming text" },
 
-  "newNote" : "New Note",
+  "newNote" : "add",
   "@newNote" : { "description" : "new Note FAB" },
 
   "logOut" : "Log Out",

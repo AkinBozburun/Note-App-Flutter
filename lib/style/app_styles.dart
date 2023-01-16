@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppStyle
 {
-  static TextStyle loginTitleStyle = const TextStyle(color: Colors.black,fontSize: 30);
+  static const _font1 = "Archivo Narrow";
+  static const _font2 = "Fredoka";
+  static const _font3 = "Varela Round";
+  static const _font4 = "PT Sans";
+  static const _font5 = "Inter";
+  static const _font6 = "Montserrat";
 
   static OutlineInputBorder txtFieldBorder = const OutlineInputBorder
   (
@@ -10,19 +16,35 @@ class AppStyle
     borderSide: BorderSide(color: backgroundColor),
   );
 
-  static TextStyle singUpTxt = const TextStyle(color: Colors.blue,decoration: TextDecoration.underline);
+  TextStyle noNet = GoogleFonts.getFont(_font6,color: blackColor, fontSize: 18,fontWeight: FontWeight.w600);
 
-  static TextStyle hiStyle = TextStyle(color: Colors.grey.shade600,fontSize: 16);
-  static TextStyle userNameStyle = const TextStyle(color: Colors.black,fontSize: 20);
+  TextStyle loginTitleStyle = GoogleFonts.getFont(_font2,color: blackColor,fontSize: 30,fontWeight: FontWeight.w600);
 
-  static TextStyle titleStyle = const TextStyle(fontSize: 24,fontWeight: FontWeight.w500);
-  static TextStyle noteStyle = const TextStyle(fontSize: 18);
-  static TextStyle dateStyle = const TextStyle(fontSize: 14,color: Colors.black);
+  TextStyle hintStyle = GoogleFonts.getFont(_font3,color: Colors.grey.shade600, fontSize: 14);
+  TextStyle secureButtonStyle = GoogleFonts.getFont(_font1,color: Colors.blue,fontWeight: FontWeight.w500);
+  TextStyle buttonStyle = GoogleFonts.getFont(_font5,color: Colors.white,fontWeight: FontWeight.w500);
 
-  static const Color backgroundColor =  Color(0xFFE9E9E9);
+  TextStyle googleButtonStyle = GoogleFonts.getFont(_font5, color: blackColor,fontWeight: FontWeight.w500);
+
+  TextStyle noAcountTxt = GoogleFonts.getFont(_font4,color: blackColor);
+  TextStyle singUpTxt = GoogleFonts.getFont(_font4,color: Colors.blue,decoration: TextDecoration.underline);
+
+  TextStyle hiStyle = GoogleFonts.getFont(_font4,color: Colors.grey.shade600,fontSize: 16,fontWeight: FontWeight.w500);
+  TextStyle userNameStyle = GoogleFonts.getFont(_font1,color: blackColor,fontSize: 20,fontWeight: FontWeight.w700);
+
+  static TextStyle noNotes1 = GoogleFonts.getFont(_font2,color: blackColor, fontSize: 20,fontWeight: FontWeight.w600);
+  static TextStyle noNotes2 = GoogleFonts.getFont(_font3,color: Colors.grey.shade500, fontSize: 14);
+
+  TextStyle cardTitle = GoogleFonts.getFont(_font4,color: blackColor,fontWeight: FontWeight.w600);
+  TextStyle cardNote = GoogleFonts.getFont(_font4,fontWeight: FontWeight.w500);
+
+  TextStyle titleStyle = const TextStyle(fontSize: 24,fontWeight: FontWeight.w500);
+  TextStyle noteStyle = const TextStyle(fontSize: 18);
+  TextStyle dateStyle = const TextStyle(fontSize: 14,color: blackColor);
+
+  static const Color backgroundColor = Color(0xFFF5F5FA);
   static const Color blueColor = Color(0xFF85B6B1);
-  static const Color blackColor = Color(0xFF0A0909);
-  static const Color orangeColor = Color(0xFFED7A3C);
+  static const Color blackColor = Color(0xFF0F1F29);
 
   static List colorsBar =
   [

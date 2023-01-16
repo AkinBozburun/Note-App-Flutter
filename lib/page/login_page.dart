@@ -19,7 +19,6 @@ class LoginPage extends StatefulWidget
 
 class _LoginPageState extends State<LoginPage>
 {
-
   final TextEditingController _mailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -68,7 +67,7 @@ class _LoginPageState extends State<LoginPage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: tranparentStatusBar(),
-        title: Text(localText.logIn,style: AppStyle.loginTitleStyle),
+        title: Text(localText.logIn,style: AppStyle().loginTitleStyle),
         centerTitle: true,
         toolbarHeight: 120,
       ),
@@ -93,10 +92,10 @@ class _LoginPageState extends State<LoginPage>
               const SizedBox(height: 30),
               Text.rich(TextSpan(children:
               [
-                TextSpan(text: localText.noAccount),
+                TextSpan(text: localText.noAccount, style: AppStyle().noAcountTxt),
                 TextSpan
                 (
-                  text: localText.createAccount,style: AppStyle.singUpTxt,
+                  text: localText.createAccount,style: AppStyle().singUpTxt,
                   recognizer: TapGestureRecognizer()..onTap = widget.onClickedRegister
                 ),
               ])),

@@ -42,19 +42,19 @@ Widget noteCards(Function() tap,QueryDocumentSnapshot doc) => InkWell
     ),
     child: ListTile
     (
-      contentPadding: const EdgeInsets.all(14),
-      title: Text(doc["note_title"]),
-      subtitle: Text(doc["note"]),
+      contentPadding: const EdgeInsets.all(12),
+      title: Text(doc["note_title"],style: AppStyle().cardTitle),
+      subtitle: Text(doc["note"],style: AppStyle().cardNote),
     ),
   ),
 );
 
-Widget addNoteButton(Function() navigator,txt) => FloatingActionButton.extended
+Widget addNoteButton(Function() navigator,txt) => FloatingActionButton
 (
-  backgroundColor: AppStyle.orangeColor,
+  backgroundColor: AppStyle.blackColor,
   onPressed: navigator,
-  label: Text(txt),
-  icon: const Icon(Icons.add),
+  elevation: 6,
+  child: const Icon(Icons.add),
 );
 
 Widget backButton(Function() press) => IconButton
@@ -132,7 +132,7 @@ Widget colorsBar(doc,id,userId,txt)
         mainAxisAlignment: MainAxisAlignment.center,
         children:
         [
-          Text("$txt ${doc?["note_date"]}",style: AppStyle.dateStyle),
+          Text("$txt ${doc?["note_date"]}",style: AppStyle().dateStyle),
           const SizedBox(height: 10),
           ColorListWidget(id: id!, userID: userId),
         ],
@@ -153,6 +153,7 @@ Widget mailTxtField(mailController,context)
     decoration:  InputDecoration
     (
       hintText: localText.mailHint,
+      hintStyle: AppStyle().hintStyle,
       prefixIcon: const Icon(Icons.email),
       filled: true,
       fillColor: Colors.white,
@@ -177,11 +178,12 @@ Widget passwordTxtField(passwordController,con)
     decoration: InputDecoration
     (
       hintText: localText.passwordHint,
+      hintStyle: AppStyle().hintStyle,
       prefixIcon: const Icon(Icons.key),
       suffixIcon: TextButton
       (
         onPressed: () => provider.setPasswordVisible(),
-        child: Text(provider.passwordSecure ? localText.passwordShow : localText.passwordHide),
+        child: Text(provider.passwordSecure ? localText.passwordShow : localText.passwordHide,style: AppStyle().secureButtonStyle),
       ),
       filled: true,
       fillColor: Colors.white,
@@ -200,15 +202,13 @@ Widget registerButton(Function() login,txt) => InkWell //Log In Button
     height: 50,
     decoration: BoxDecoration
     (
-      color: Colors.grey.shade600,
+      color: AppStyle.blackColor,
       borderRadius: BorderRadius.circular(10)
     ),
     child: Center(child: Text(txt,
-    style: const TextStyle(color: Colors.white,fontSize: 16),)),
+    style: AppStyle().buttonStyle)),
   ),
 );
-
-Widget snackBar(txt) => SnackBar(content: Text(txt));
 
 Widget orSeparate(txt) => Row
 (
@@ -216,7 +216,7 @@ Widget orSeparate(txt) => Row
   children:
   [
     Container(height: 0.4,width: 120,color: Colors.black),
-    Text(txt),
+    Text(txt,style: AppStyle().noAcountTxt),
     Container(height: 0.4,width: 120,color: Colors.black)
   ]
 );
@@ -234,7 +234,7 @@ Widget googleLogIn(context)
       height: 50,
       decoration: BoxDecoration
       (
-        color: Colors.white,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(10)
       ),
       child: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -242,7 +242,7 @@ Widget googleLogIn(context)
       [
         Image.asset("images/google.png"),
         Text(localText.signInWithGoogle,
-        style: const TextStyle(color: Colors.black,fontSize: 16)),
+        style: AppStyle().googleButtonStyle),
       ])),
     ),
   );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_notes_app/style/app_styles.dart';
 
 class NoNotesAlert extends StatefulWidget
 {
@@ -13,6 +15,7 @@ class _NoNotesAlertState extends State<NoNotesAlert>
   @override
   Widget build(BuildContext context)
   {
+    final localText = AppLocalizations.of(context)!;
     return Center
     (
       child: Column
@@ -22,12 +25,15 @@ class _NoNotesAlertState extends State<NoNotesAlert>
         [
           SizedBox
           (
-            height: 100,
-            width: 100,
+            height: 150,
+            width: 150,
             child: Image.asset("images/note.png")
           ),
+          const SizedBox(height: 20),
+          Text(localText.noNote,style: AppStyle.noNotes1),
           const SizedBox(height: 10),
-          const Text("Hiç notun yok :/")
+          Text(localText.takeNote,style: AppStyle.noNotes2),
+          const SizedBox(height: 100),
         ],
       ),
     );
