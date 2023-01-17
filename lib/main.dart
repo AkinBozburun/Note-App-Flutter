@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:my_notes_app/pages/auth_page.dart';
 import 'package:my_notes_app/pages/no_internet_page.dart';
 import 'package:my_notes_app/tools/providers.dart';
@@ -12,10 +13,10 @@ import 'tools/firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async
 {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
@@ -75,6 +76,13 @@ class NetCheck extends StatefulWidget
 
 class _NetCheckState extends State<NetCheck>
 {
+  @override
+  void initState()
+  {
+    FlutterNativeSplash.remove();
+    super.initState();
+  }
+
   Future _netCheck() async
   {
     final connectivityResult = await (Connectivity().checkConnectivity());
